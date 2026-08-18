@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type ComponentType } from "react";
+import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Chrome, SlideMap } from "./components/Chrome";
 import { EASE } from "./components/ui";
@@ -34,8 +34,6 @@ export default function App() {
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
-  const lock = useRef(0);
-  const touch = useRef<{ x: number; y: number; scrollable: boolean } | null>(null);
 
   const go = useCallback(
     (next: number) => {
@@ -55,10 +53,10 @@ export default function App() {
       if (e.key === "Escape") return setMapOpen(false);
       if (e.key === "g" || e.key === "G") return setMapOpen((v) => !v);
       if (mapOpen) return;
-      if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(e.key)) {
+      if (e.key === "ArrowRight") {
         e.preventDefault();
         handleNext();
-      } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) {
+      } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         handlePrev();
       } else if (e.key === "Home") {
@@ -71,47 +69,8 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, [handleNext, handlePrev, go, mapOpen]);
 
-  const onWheel = (e: React.WheelEvent) => {
-    if (mapOpen) return;
-    // Let internal slide scrolling happen naturally; only change slides at the edges
-    const scroller = (e.target as HTMLElement).closest?.("[data-scroll]") as HTMLElement | null;
-    if (scroller && scroller.scrollHeight > scroller.clientHeight + 4) {
-      const atTop = scroller.scrollTop <= 0;
-      const atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4;
-      if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) return;
-    }
-    const now = Date.now();
-    if (now - lock.current < 1100 || Math.abs(e.deltaY) < 30) return;
-    lock.current = now;
-    if (e.deltaY > 0) handleNext();
-    else handlePrev();
-  };
-
   return (
-    <div
-      className="relative h-dvh w-screen overflow-hidden bg-ink text-bone"
-      onWheel={onWheel}
-      onTouchStart={(e) => {
-        const scroller = (e.target as HTMLElement).closest?.("[data-scroll]") as HTMLElement | null;
-        const scrollable = !!scroller && scroller.scrollHeight > scroller.clientHeight + 4;
-        touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, scrollable };
-      }}
-      onTouchEnd={(e) => {
-        if (!touch.current || mapOpen) return;
-        const dy = e.changedTouches[0].clientY - touch.current.y;
-        const dx = e.changedTouches[0].clientX - touch.current.x;
-        const inScroller = touch.current.scrollable;
-        touch.current = null;
-        if (Math.abs(dy) < 60 && Math.abs(dx) < 60) return;
-        if (Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) handleNext();
-          else handlePrev();
-        } else if (!inScroller) {
-          if (dy < 0) handleNext();
-          else handlePrev();
-        }
-      }}
-    >
+    <div className="relative h-dvh w-screen overflow-hidden bg-ink text-bone">
       <AnimatePresence mode="wait" custom={dir}>
         <motion.main
           key={index}

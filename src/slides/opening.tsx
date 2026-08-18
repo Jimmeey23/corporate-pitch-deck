@@ -294,7 +294,7 @@ export function Difference() {
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 z-10 flex items-end justify-between">
                   <div>
-                    <Kicker>The Sculpt</Kicker>
+                    <Kicker>Barre 57</Kicker>
                     <p className="mt-2 font-display text-xl italic tracking-[-0.015em] text-champagne">
                       The signature 57-minute class
                     </p>
