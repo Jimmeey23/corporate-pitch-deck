@@ -282,7 +282,7 @@ export function SlideShell({
             </Reveal>
           )}
 
-          <div className="mt-10 min-h-0 flex-1 md:mt-12">{children}</div>
+          <div className="mt-10 shrink-0 md:mt-12">{children}</div>
 
           {footnote && (
             <Reveal delay={0.45}>

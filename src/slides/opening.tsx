@@ -206,10 +206,22 @@ export function WhyNow() {
 /* -------------------------------- The Method ------------------------------- */
 
 const PILLARS = [
-  { title: "Ballet-meets-strength intervals", text: "Low-impact, high-intensity sequences built on isometric holds - kind to joints, serious about results." },
-  { title: "Instructor-led, form-obsessed", text: "Small classes, certified instructors and personal correction in every session." },
-  { title: "A community worth joining", text: "Founders, executives and cultural figures train here - your teams join a community, not just a class." },
-  { title: "On-demand between meetings", text: "The full digital library keeps members consistent through travel weeks and hybrid schedules." }
+  {
+    title: "Ballet-meets-strength intervals",
+    text: "Low-impact, high-intensity sequences built on isometric holds - kind to joints, serious about results. Visible tone and posture change in as few as 8 sessions, with a fraction of the recovery downtime of HIIT or running."
+  },
+  {
+    title: "Instructor-led, form-obsessed",
+    text: "Small classes, certified instructors and personal correction in every session - never a screen shouting cues into the void. Every rep is watched, adjusted and made safe, so first-timers and athletes train side by side."
+  },
+  {
+    title: "A community worth joining",
+    text: "Founders, executives and cultural figures train here - your teams join a community, not just a class. It's a rare, informal room where colleagues, clients and industry peers show up as people first."
+  },
+  {
+    title: "On-demand between meetings",
+    text: "The full digital library keeps members consistent through travel weeks and hybrid schedules, on any device, anywhere. No studio, no equipment and no excuse - a 20-minute reset fits between back-to-back calls."
+  }
 ];
 
 export function Difference() {
