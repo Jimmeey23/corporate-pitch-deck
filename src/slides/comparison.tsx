@@ -1,37 +1,36 @@
 import { useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Pencil } from "lucide-react";
 import { Reveal, Segmented, SlideShell } from "../components/ui";
 import { OPTIONS, fmtINR, fmtShort } from "../data/programme";
 
-const PRESETS: { value: string; label: string; t: number }[] = [
-  { value: "0", label: "Low", t: 0 },
-  { value: "1", label: "Medium", t: 0.5 },
-  { value: "2", label: "High", t: 1 }
+const PRESETS: { value: string; label: string; scenario: 0 | 1 | 2 }[] = [
+  { value: "0", label: "Low", scenario: 0 },
+  { value: "1", label: "Medium", scenario: 1 },
+  { value: "2", label: "High", scenario: 2 }
 ];
 
-const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
 
-const DEFAULT_LEVELS = OPTIONS.map(() => 0.5);
+const DEFAULT_VALUES = OPTIONS.map((o) => o.scenarios[1].revenue);
 
 export function Comparison() {
-  const [levels, setLevels] = useState<number[]>(DEFAULT_LEVELS);
+  const [values, setValues] = useState<number[]>(DEFAULT_VALUES);
   const [preset, setPreset] = useState<string | null>("1");
 
-  const revenues = OPTIONS.map((o, i) => lerp(o.scenarios[0].revenue, o.scenarios[2].revenue, levels[i]));
-  const max = Math.max(...revenues);
-  const total = revenues.reduce((s, r) => s + r, 0);
+  const max = Math.max(...values);
+  const total = values.reduce((s, r) => s + r, 0);
 
   const applyPreset = (v: string) => {
     const p = PRESETS.find((p) => p.value === v)!;
-    setLevels(OPTIONS.map(() => p.t));
+    setValues(OPTIONS.map((o) => o.scenarios[p.scenario].revenue));
     setPreset(v);
   };
 
-  const updateLevel = (i: number, t: number) => {
-    setLevels((prev) => {
-      const next = [...prev];
-      next[i] = t;
-      return next;
+  const setValue = (i: number, next: number) => {
+    setValues((prev) => {
+      const copy = [...prev];
+      copy[i] = clamp(next, 0, 1e9);
+      return copy;
     });
     setPreset(null);
   };
@@ -47,8 +46,8 @@ export function Comparison() {
           <span className="gold-foil italic">one clear picture.</span>
         </>
       }
-      sub="Our programmes are designed to work together, not compete - most partners combine two or three to cover different teams and goals. Drag any bar to model your own mix; figures show indicative annual investment per programme."
-      footnote="Most partners begin with hosted classes or a credit block, and grow into memberships and leadership programmes as participation builds. Each slider ranges from that programme's low to high adoption scenario."
+      sub="Our programmes are designed to work together, not compete - most partners combine two or three to cover different teams and goals. Drag a bar or type an exact figure to model your own mix."
+      footnote="Most partners begin with hosted classes or a credit block, and grow into memberships and leadership programmes as participation builds. Edit any figure below - the combined total updates instantly."
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Segmented
@@ -70,12 +69,15 @@ export function Comparison() {
       <div className="panel mt-8 overflow-hidden">
         <div className="relative z-10">
           {OPTIONS.map((o, i) => {
-            const rev = revenues[i];
-            const pct = Math.max((rev / max) * 100, 3);
+            const rev = values[i];
+            const lo = o.scenarios[0].revenue;
+            const hi = o.scenarios[2].revenue;
+            const t = clamp((rev - lo) / (hi - lo || 1), 0, 1);
+            const pct = clamp((rev / max) * 100, 3, 100);
             return (
               <Reveal key={o.id} delay={0.14 + i * 0.07}>
                 <div
-                  className={`grid grid-cols-[96px_1fr] items-center gap-5 px-6 py-4 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[230px_1fr_140px] ${
+                  className={`grid grid-cols-[96px_1fr] items-center gap-4 px-6 py-4 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[210px_1fr_150px] sm:gap-5 ${
                     i > 0 ? "border-t border-bone/[0.055]" : ""
                   }`}
                 >
@@ -101,14 +103,14 @@ export function Comparison() {
                       type="range"
                       min={0}
                       max={1}
-                      step={0.01}
-                      value={levels[i]}
-                      onChange={(e) => updateLevel(i, parseFloat(e.target.value))}
+                      step={0.005}
+                      value={t}
+                      onChange={(e) => setValue(i, Math.round(lerpVal(lo, hi, parseFloat(e.target.value))))}
                       aria-label={`${o.short} adoption level`}
-                      className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                      className="absolute inset-0 h-full w-full cursor-grab opacity-0 active:cursor-grabbing"
                     />
                     <div
-                      className="pointer-events-none absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gilt shadow-[0_0_10px_rgba(231,200,122,0.7)]"
+                      className="pointer-events-none absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink bg-gilt shadow-[0_0_10px_rgba(231,200,122,0.8)]"
                       style={{ left: `${pct}%` }}
                     />
                   </div>
@@ -117,9 +119,18 @@ export function Comparison() {
                     <div className="font-display text-[1.15rem] font-light leading-none tracking-[-0.02em] text-champagne">
                       {fmtShort(rev)}
                     </div>
-                    <div className="tnum mt-1.5 text-[9px] tracking-wide text-bone/28">
-                      {fmtINR(rev)}
-                    </div>
+                    <label className="group mt-1.5 flex items-center justify-end gap-1.5">
+                      <Pencil size={9} className="text-gold/40 transition-colors duration-200 group-focus-within:text-gold" />
+                      <span className="tnum text-[9px] text-bone/28">₹</span>
+                      <input
+                        type="number"
+                        min={0}
+                        step={1000}
+                        value={Math.round(rev)}
+                        onChange={(e) => setValue(i, Number(e.target.value) || 0)}
+                        className="tnum w-[86px] border-b border-dashed border-gold/25 bg-transparent text-right text-[10px] tracking-wide text-bone/60 outline-none transition-colors duration-200 hover:border-gold/50 focus:border-gold focus:text-champagne"
+                      />
+                    </label>
                   </div>
                 </div>
               </Reveal>
@@ -147,4 +158,8 @@ export function Comparison() {
       </Reveal>
     </SlideShell>
   );
+}
+
+function lerpVal(a: number, b: number, t: number) {
+  return a + (b - a) * t;
 }
