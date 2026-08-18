@@ -17,7 +17,7 @@ export function PartnershipStandard() {
   return (
     <SlideShell
       tone="light"
-      num="08"
+      num="09"
       kicker="The partnership standard"
       title={
         <>
@@ -59,7 +59,7 @@ export function Roadmap() {
   return (
     <SlideShell
       tone="light"
-      num="10"
+      num="11"
       kicker="Your first 90 days"
       title={
         <>
@@ -205,7 +205,7 @@ export function Closing() {
             <Reveal delay={0.48}>
               <div className="mt-11 flex flex-wrap items-center gap-3.5">
                 <a
-                  href="mailto:corporate.in@physique57.com?subject=Corporate%20Wellness%20%E2%80%94%20Introduction%20Call"
+                  href="mailto:info@physique57india.com?subject=Corporate%20Wellness%20%E2%80%94%20Introduction%20Call"
                   className="group inline-flex items-center gap-3 rounded-full px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-ink transition-all duration-400 hover:shadow-[0_20px_50px_-14px_rgba(201,162,39,0.85)]"
                   style={{
                     background: "linear-gradient(140deg, #f0d999 0%, #d8b23f 40%, #c9a227 100%)",
@@ -219,7 +219,7 @@ export function Closing() {
                   />
                 </a>
                 <a
-                  href="mailto:corporate.in@physique57.com?subject=Corporate%20Programme%20Brochure%20Request"
+                  href="mailto:info@physique57india.com?subject=Corporate%20Programme%20Brochure%20Request"
                   className="inline-flex items-center gap-3 rounded-full border border-gold/35 px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-gilt/85 transition-all duration-400 hover:border-gold/70 hover:bg-gold/[0.07] hover:text-champagne"
                 >
                   Request the full brochure
@@ -230,7 +230,7 @@ export function Closing() {
             <Reveal delay={0.6}>
               <div className="mt-16 grid max-w-3xl gap-6 border-t border-gold/15 pt-7 sm:grid-cols-3">
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
-                  <Mail size={13} className="shrink-0 text-gold" /> corporate.in@physique57.com
+                  <Mail size={13} className="shrink-0 text-gold" /> info@physique57india.com
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
                   <MapPin size={13} className="shrink-0 text-gold" /> Flagship studio - Mumbai

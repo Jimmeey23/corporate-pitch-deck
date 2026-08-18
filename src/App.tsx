@@ -5,7 +5,7 @@ import { EASE } from "./components/ui";
 import { Cover, WhyNow, StatusQuo, Difference, Overview } from "./slides/opening";
 import { Option1, Option2, Option3, Option4, Option5, Option6 } from "./slides/options";
 import { Comparison } from "./slides/comparison";
-import { ROICalculator, FAQ } from "./slides/extras";
+import { SegmentHooks, ROICalculator, FAQ } from "./slides/extras";
 import { PartnershipStandard, Roadmap, Closing } from "./slides/closing";
 
 interface SlideEntry {
@@ -20,18 +20,19 @@ const SLIDES: SlideEntry[] = [
   { id: "status-quo", title: "02 · The cost of the status quo", C: StatusQuo },
   { id: "method", title: "03 · The Physique 57 method", C: Difference },
   { id: "architecture", title: "04 · Programmes at a glance", C: Overview as SlideEntry["C"] },
+  { id: "segments", title: "05 · Where this lands best", C: SegmentHooks },
   { id: "opt-1", title: "Programme 01 - Flexible benefits listing", C: Option1 },
   { id: "opt-2", title: "Programme 02 - Pooled class credits", C: Option2 },
   { id: "opt-3", title: "Programme 03 - The leadership concierge", C: Option3 },
   { id: "opt-4", title: "Programme 04 - Tiered membership menu", C: Option4 },
   { id: "opt-5", title: "Programme 05 - On-site & hosted classes", C: Option5 },
   { id: "opt-6", title: "Programme 06 - Digital access pass", C: Option6 },
-  { id: "portfolio", title: "06 · The complete picture", C: Comparison },
-  { id: "roi", title: "07 · What it's worth", C: ROICalculator },
-  { id: "standard", title: "08 · The partnership standard", C: PartnershipStandard },
-  { id: "faq", title: "09 · Common questions", C: FAQ },
-  { id: "roadmap", title: "10 · Your first 90 days", C: Roadmap },
-  { id: "next", title: "11 · Let's begin", C: Closing }
+  { id: "portfolio", title: "07 · The complete picture", C: Comparison },
+  { id: "roi", title: "08 · What it's worth", C: ROICalculator },
+  { id: "standard", title: "09 · The partnership standard", C: PartnershipStandard },
+  { id: "faq", title: "10 · Common questions", C: FAQ },
+  { id: "roadmap", title: "11 · Your first 90 days", C: Roadmap },
+  { id: "next", title: "12 · Let's begin", C: Closing }
 ];
 
 export default function App() {

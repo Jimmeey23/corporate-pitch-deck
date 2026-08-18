@@ -24,7 +24,7 @@ export function Comparison() {
   return (
     <SlideShell
       tone="dark"
-      num="06"
+      num="07"
       kicker="The complete picture"
       title={
         <>

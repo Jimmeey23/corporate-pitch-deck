@@ -437,7 +437,7 @@ export function Overview({ onSelect }: { onSelect: (i: number) => void }) {
         {OPTIONS.map((o, i) => (
           <Reveal key={o.id} delay={0.14 + i * 0.07} className="h-full">
             <button
-              onClick={() => onSelect(5 + i)}
+              onClick={() => onSelect(6 + i)}
               className="panel panel-hover group flex h-full w-full flex-col p-7 text-left"
             >
               <div className="relative z-10 flex items-baseline justify-between">

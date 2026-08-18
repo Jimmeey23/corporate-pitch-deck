@@ -1,7 +1,133 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import {
+  ChevronDown,
+  Landmark,
+  Scale,
+  Cpu,
+  Pill,
+  Clapperboard,
+  ShieldCheck,
+  Building2,
+  type LucideIcon
+} from "lucide-react";
 import { AnimatedNumber, Reveal, Segmented, SlideShell, Kicker } from "../components/ui";
 import { fmtINR, fmtShort } from "../data/programme";
+
+/* ------------------------------- Segment hooks ------------------------------ */
+
+const SEGMENTS: { icon: LucideIcon; sector: string; area: string; points: string[] }[] = [
+  {
+    icon: Landmark,
+    sector: "Banks & Financial Services",
+    area: "Nariman Point · BKC",
+    points: [
+      "Lead with stress and burnout data - high-pressure, sedentary desk jobs, long hours during results season",
+      "Position as a retention tool for a sector with notoriously high burnout-driven churn",
+      "Early-morning classes (7-8:30 AM) fit trading-floor schedules before market open"
+    ]
+  },
+  {
+    icon: Scale,
+    sector: "Law Firms",
+    area: "Nariman Point",
+    points: [
+      "High-stress, high-billable-hours culture - pitch as a reset between client calls",
+      "Evening classes post-6PM once court and deal work slows down",
+      "Partner-tier perk: comp memberships for equity partners, cascading to associates at a discount"
+    ]
+  },
+  {
+    icon: Cpu,
+    sector: "IT / Tech & BPO",
+    area: "Powai · Malad · Thane · Goregaon",
+    points: [
+      "These companies already run structured engagement calendars - position as a ready-made vendor for an existing L&D or engagement budget line, not a new ask",
+      "Younger workforce, strong appetite for boutique fitness - lead with the aspirational lifestyle brand, not just wellness",
+      "Hybrid/WFH-friendly: pitch flexible packages usable across every Physique 57 location, not just near-office"
+    ]
+  },
+  {
+    icon: Pill,
+    sector: "Pharma & Healthcare",
+    area: "Lower Parel · BKC · Worli",
+    points: [
+      "Health and wellness is on-brand and easy to justify internally - align with their own CSR and employee-health messaging",
+      "These companies often already run health check-up camps - propose bundling a fitness taster into that existing event"
+    ]
+  },
+  {
+    icon: Clapperboard,
+    sector: "Media & Entertainment",
+    area: "Lower Parel",
+    points: [
+      "Irregular hours (shoot schedules, late edits) - pitch flexible, non-fixed-time class credits over rigid on-site slots",
+      "Leverage the influencer/talent angle - a well-known face doing a class generates organic social content for both brands"
+    ]
+  },
+  {
+    icon: ShieldCheck,
+    sector: "Insurance Companies",
+    area: "Pan-Mumbai",
+    points: [
+      "Direct actuarial logic: a healthier workforce means lower claims - the easiest ROI story to tell a CFO",
+      "Cross-sell angle: propose a joint wellness-rewards programme with their own health insurance product"
+    ]
+  },
+  {
+    icon: Building2,
+    sector: "Real Estate / Business Park Owners",
+    area: "Facilities management",
+    points: [
+      "Pitch as a tenant-retention amenity - \"your building has a gym partner other business parks don't\" - not a fitness sell",
+      "One contract, access to every tenant company inside - the highest-leverage single conversation on the list"
+    ]
+  }
+];
+
+export function SegmentHooks() {
+  return (
+    <SlideShell
+      tone="dark"
+      num="05"
+      kicker="Where this lands best"
+      title={
+        <>
+          The same programme,{" "}
+          <span className="gold-foil italic">a different pitch for every floor.</span>
+        </>
+      }
+      sub="Mumbai's corporate map isn't one audience - it's seven. Here's how the story changes by sector and micro-market."
+    >
+      <div className="grid gap-3.5 sm:grid-cols-2">
+        {SEGMENTS.map((s, i) => (
+          <Reveal key={s.sector} delay={0.1 + i * 0.06} className="h-full">
+            <div className="panel panel-hover flex h-full flex-col p-6">
+              <div className="relative z-10 flex items-center gap-3.5">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/25 bg-gold/[0.08] text-gold">
+                  <s.icon size={15} strokeWidth={1.7} />
+                </span>
+                <div>
+                  <p className="font-display text-[1.1rem] font-light leading-tight tracking-[-0.015em] text-champagne">
+                    {s.sector}
+                  </p>
+                  <p className="mt-1 text-[9px] uppercase tracking-[0.2em] text-gold/55">{s.area}</p>
+                </div>
+              </div>
+              <ul className="relative z-10 mt-4 space-y-2.5">
+                {s.points.map((pt) => (
+                  <li key={pt} className="flex gap-2.5 text-[12px] leading-[1.6] text-bone/50">
+                    <span className="mt-[7px] h-[3px] w-[3px] shrink-0 rotate-45 bg-gold/60" />
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </SlideShell>
+  );
+}
 
 /* ------------------------------ ROI Calculator ------------------------------ */
 
@@ -20,7 +146,7 @@ export function ROICalculator() {
   return (
     <SlideShell
       tone="light"
-      num="07"
+      num="08"
       kicker="What it's worth"
       title={
         <>
@@ -161,11 +287,11 @@ export function FAQ() {
   return (
     <SlideShell
       tone="dark"
-      num="09"
+      num="10"
       kicker="Common questions"
       title={
         <>
-          Common questions, <span className="gold-foil italic">answered honestly.</span>
+          Common questions, <span className="gold-foil italic">answered.</span>
         </>
       }
       sub="The things procurement, finance and HR usually ask before signing."
