@@ -1,4 +1,5 @@
-import { Handshake, Megaphone, BarChart3, CalendarDays, Ticket, Receipt, ArrowRight, Mail, MapPin, Globe } from "lucide-react";
+import { useState } from "react";
+import { Handshake, Megaphone, BarChart3, CalendarDays, Ticket, Receipt, ArrowRight, Mail, MapPin, Globe, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { Reveal, SlideShell, Kicker, EASE } from "../components/ui";
 
@@ -152,18 +153,126 @@ export function Roadmap() {
 
 /* --------------------------------- Closing --------------------------------- */
 
-const TARGET_HUBS = [
-  { area: "Andheri East", count: 16 },
-  { area: "Nariman Point", count: 14 },
-  { area: "Lower Parel", count: 10 },
-  { area: "BKC", count: 8 },
-  { area: "Powai", count: 8 },
-  { area: "Goregaon East", count: 7 },
-  { area: "Fort", count: 6 },
-  { area: "Malad West", count: 5 }
+const TARGET_HUBS: { area: string; companies: { name: string; sector: string }[] }[] = [
+  {
+    area: "Andheri East",
+    companies: [
+      { name: "HDFC ERGO General Insurance", sector: "Insurance" },
+      { name: "Hungama Digital Media Entertainment", sector: "Media/Entertainment" },
+      { name: "Red Bull Pvt Ltd (India HQ)", sector: "FMCG/Beverages" },
+      { name: "Procter & Gamble Hygiene and Health Care Ltd", sector: "FMCG" },
+      { name: "PVR INOX Limited", sector: "Media/Entertainment" },
+      { name: "Jet Airways (Head Office)", sector: "Aviation" },
+      { name: "The Supreme Industries Ltd (Corporate Office)", sector: "Manufacturing/Plastics" },
+      { name: "Solitaire Corporate Park (multi-tenant)", sector: "Mixed Corporate" },
+      { name: "VKG Corporate Centre (multi-tenant)", sector: "Mixed Corporate" },
+      { name: "Hubtown Solaris (business park, 100+ companies)", sector: "Mixed Corporate" },
+      { name: "Lodha Supremus, Andheri (business park)", sector: "Mixed Corporate" },
+      { name: "Skyline Icon (business/coworking hub)", sector: "Mixed Corporate/Coworking" },
+      { name: "Watson Pharma (Head Office)", sector: "Pharma" },
+      { name: "Oceanic Pharmachem Pvt Ltd", sector: "Pharma" },
+      { name: "Network Techlab (India) Ltd", sector: "IT Infrastructure" },
+      { name: "Nirman Group of Companies", sector: "Real Estate/Construction" }
+    ]
+  },
+  {
+    area: "Nariman Point",
+    companies: [
+      { name: "Union Bank of India (Central Office)", sector: "Banking (PSU)" },
+      { name: "DBS Bank (Nariman Point Branch)", sector: "Banking" },
+      { name: "Axis Bank (Corporate Banking Branch)", sector: "Banking" },
+      { name: "Bank of Baroda (Mid-Corporate Branch)", sector: "Banking (PSU)" },
+      { name: "Central Bank of India (Head Office - Chander Mukhi)", sector: "Banking (PSU)" },
+      { name: "Bandhan Bank", sector: "Banking" },
+      { name: "Shardul Amarchand Mangaldas", sector: "Law Firm" },
+      { name: "Khaitan Legal Associates", sector: "Law Firm" },
+      { name: "Khemka & Associates", sector: "Law Firm" },
+      { name: "Vis Legis Law Practice, Advocates", sector: "Law Firm" },
+      { name: "ALMT Legal", sector: "Law Firm" },
+      { name: "Regstreet Law Advisors", sector: "Law Firm" },
+      { name: "RKS Associate", sector: "Law Firm" },
+      { name: "Dhruve Liladhar And Co", sector: "Law Firm" }
+    ]
+  },
+  {
+    area: "Lower Parel",
+    companies: [
+      { name: "Tata AIG General Insurance", sector: "Insurance" },
+      { name: "Cedar Management Consulting International", sector: "Consulting" },
+      { name: "Cipla Ltd (Corporate HQ)", sector: "Pharma" },
+      { name: "JioStar India Pvt Ltd (Star House)", sector: "Media/Entertainment" },
+      { name: "ZEE Entertainment Enterprises (HQ)", sector: "Media/Entertainment" },
+      { name: "Peninsula Corporate Park (multi-tenant business park)", sector: "Mixed Corporate" },
+      { name: "One Lodha Place (business park)", sector: "Mixed Corporate" },
+      { name: "Nippon India Mutual Fund (Corporate Office)", sector: "Asset Management" },
+      { name: "Allied Blenders And Distillers Ltd", sector: "FMCG/Beverages" },
+      { name: "Peninsula Land Ltd", sector: "Real Estate" }
+    ]
+  },
+  {
+    area: "BKC",
+    companies: [
+      { name: "De Beers Group (Corporate Office)", sector: "Luxury/Diamonds" },
+      { name: "SAP India Pvt Ltd", sector: "IT/Software" },
+      { name: "ONGC (Corporate HQ)", sector: "Oil & Gas (PSU)" },
+      { name: "Google Mumbai", sector: "IT/Technology" },
+      { name: "Godrej BKC (multi-tenant incl. Amazon, Netflix, Abbott)", sector: "Mixed Corporate" },
+      { name: "JLL Mumbai (Real Estate Consulting)", sector: "Real Estate Services" },
+      { name: "Abbott India Ltd", sector: "Pharma/Healthcare" },
+      { name: "Pittie Group (Corporate HQ)", sector: "Conglomerate/Retail" }
+    ]
+  },
+  {
+    area: "Powai",
+    companies: [
+      { name: "Tata Consultancy Services (Kensington Campus)", sector: "IT/Software" },
+      { name: "HCLTech", sector: "IT/Software" },
+      { name: "Thoughtworks Technologies India", sector: "IT/Software" },
+      { name: "LTIMindtree (LTM)", sector: "IT/Software" },
+      { name: "Orion Innovation", sector: "IT/Software" },
+      { name: "Tech Data Technology Solutions", sector: "IT/Distribution" },
+      { name: "Moat Wealth Associates LLP", sector: "Financial Services" },
+      { name: "Param Investments MF Services LLP", sector: "Financial Services" }
+    ]
+  },
+  {
+    area: "Goregaon East",
+    companies: [
+      { name: "Oberoi Realty Limited", sector: "Real Estate" },
+      { name: "Oberoi Commerz III (business tower)", sector: "Mixed Corporate" },
+      { name: "Commerz II (Oberoi business tower)", sector: "Mixed Corporate" },
+      { name: "Lotus Corporate Park (200+ companies incl. Asian Paints, Mahindra)", sector: "Mixed Corporate" },
+      { name: "Corporate Avenue (multi-tenant)", sector: "Mixed Corporate" },
+      { name: "Synergy Business Park", sector: "Mixed Corporate" },
+      { name: "Oberoi Garden City / International Business Park", sector: "Mixed Corporate" }
+    ]
+  },
+  {
+    area: "Fort",
+    companies: [
+      { name: "Tata Communications Ltd", sector: "Telecom" },
+      { name: "Groupe Veritas Limited", sector: "Petrochemical Trading" },
+      { name: "Tata Steel Ltd (Bombay House - Tata Group HQ)", sector: "Conglomerate/Steel" },
+      { name: "Healthspring (Corporate HQ)", sector: "Healthcare" },
+      { name: "DBS Workspace (Serviced/Shared Offices)", sector: "Business Centre" },
+      { name: "Dosti Realty Ltd (Corporate Office)", sector: "Real Estate" }
+    ]
+  },
+  {
+    area: "Malad West",
+    companies: [
+      { name: "Mindspace Malad (IT/business park)", sector: "Mixed Corporate" },
+      { name: "Tech Mahindra Limited", sector: "IT/BPO" },
+      { name: "Prism Tower (Mindspace - ICICI, Bank of America, Teleperformance)", sector: "Mixed Corporate" },
+      { name: "Sodexo India (Office)", sector: "Facilities/Corporate Services" },
+      { name: "9 Business Bay (business park)", sector: "Mixed Corporate" }
+    ]
+  }
 ];
 
 export function Closing() {
+  const [openHub, setOpenHub] = useState<string | null>(null);
+
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
       <motion.img
@@ -243,17 +352,53 @@ export function Closing() {
                 <Kicker>Pipeline, ready to activate</Kicker>
                 <p className="relative z-10 mt-3 max-w-xl text-[12.5px] leading-[1.7] text-bone/50">
                   94 target companies already mapped across Mumbai's top corporate hubs - spanning
-                  banking, law, IT, pharma and media - so outreach can begin the day we sign.
+                  banking, law, IT, pharma and media - so outreach can begin the day we sign. Tap a
+                  hub to see who's on the list.
                 </p>
                 <div className="relative z-10 mt-4 flex flex-wrap gap-2">
-                  {TARGET_HUBS.map((h) => (
-                    <span
-                      key={h.area}
-                      className="tnum rounded-full border border-gold/25 bg-gold/[0.06] px-3.5 py-1.5 text-[9px] uppercase tracking-[0.18em] text-gilt/80"
-                    >
-                      {h.area} · {h.count}
-                    </span>
-                  ))}
+                  {TARGET_HUBS.map((h) => {
+                    const open = openHub === h.area;
+                    return (
+                      <button
+                        key={h.area}
+                        onClick={() => setOpenHub(open ? null : h.area)}
+                        aria-expanded={open}
+                        className={`tnum flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[9px] uppercase tracking-[0.18em] transition-all duration-300 ${
+                          open
+                            ? "border-gold bg-gold/[0.14] text-champagne"
+                            : "border-gold/25 bg-gold/[0.06] text-gilt/80 hover:border-gold/55 hover:bg-gold/[0.1]"
+                        }`}
+                      >
+                        {h.area} · {h.companies.length}
+                        <ChevronDown
+                          size={10}
+                          className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div
+                  className="grid transition-[grid-template-rows] duration-450 ease-out"
+                  style={{ gridTemplateRows: openHub ? "1fr" : "0fr" }}
+                >
+                  <div className="overflow-hidden">
+                    {openHub && (
+                      <div className="panel mt-4 max-h-[220px] overflow-y-auto p-5">
+                        <div className="relative z-10 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+                          {TARGET_HUBS.find((h) => h.area === openHub)!.companies.map((c) => (
+                            <div key={c.name} className="flex items-baseline justify-between gap-3 text-[11.5px]">
+                              <span className="text-bone/70">{c.name}</span>
+                              <span className="shrink-0 text-[9px] uppercase tracking-[0.14em] text-gold/45">
+                                {c.sector}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </Reveal>
