@@ -11,7 +11,8 @@ export function Chrome({
   titles,
   onPrev,
   onNext,
-  onOpenMap
+  onOpenMap,
+  onHome
 }: {
   index: number;
   total: number;
@@ -19,18 +20,23 @@ export function Chrome({
   onPrev: () => void;
   onNext: () => void;
   onOpenMap: () => void;
+  onHome: () => void;
 }) {
   return (
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-30 bg-gradient-to-b from-ink via-ink/85 to-transparent px-6 pb-10 pt-6 md:px-12 xl:px-16">
         <div className="mx-auto flex max-w-[1500px] items-center justify-between">
-          <div className="flex items-center gap-3.5">
+          <button
+            onClick={onHome}
+            aria-label="Back to cover"
+            className="pointer-events-auto flex items-center gap-3.5 transition-opacity duration-300 hover:opacity-75"
+          >
             <span className="font-display text-[15px] font-semibold tracking-[0.16em] text-cream">
               PHYSIQUE&nbsp;57
             </span>
             <span className="h-3 w-px bg-gold/40" />
             <span className="text-[9px] uppercase tracking-[0.32em] text-gold/70">India</span>
-          </div>
+          </button>
           <span className="hidden text-[9px] uppercase tracking-[0.32em] text-bone/28 sm:block">
             Corporate Wellness Partnerships
           </span>

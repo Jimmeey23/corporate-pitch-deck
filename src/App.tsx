@@ -97,6 +97,7 @@ export default function App() {
         onPrev={handlePrev}
         onNext={handleNext}
         onOpenMap={() => setMapOpen(true)}
+        onHome={() => go(0)}
       />
       <SlideMap
         open={mapOpen}
