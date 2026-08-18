@@ -233,10 +233,10 @@ export function Closing() {
                   <Mail size={13} className="shrink-0 text-gold" /> info@physique57india.com
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
-                  <MapPin size={13} className="shrink-0 text-gold" /> Flagship studio - Mumbai
+                  <MapPin size={13} className="shrink-0 text-gold" /> Flagship studio - Mumbai & Bengaluru
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
-                  <Globe size={13} className="shrink-0 text-gold" /> physique57.com
+                  <Globe size={13} className="shrink-0 text-gold" /> physique57india.com
                 </div>
               </div>
             </Reveal>
