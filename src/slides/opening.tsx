@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, MoveUpRight } from "lucide-react";
+import { ArrowRight, MoveUpRight, Check, Minus, X } from "lucide-react";
 import { Reveal, AnimatedNumber, SlideShell, SlideBackdrop, Kicker, EASE } from "../components/ui";
 import { OPTIONS } from "../data/programme";
 
@@ -203,6 +203,98 @@ export function WhyNow() {
   );
 }
 
+/* ------------------------------- Status Quo -------------------------------- */
+
+type Level = "no" | "partial" | "yes";
+
+const COMPARISON_ROWS: { label: string; none: Level; gym: Level; p57: Level }[] = [
+  { label: "Employees actually show up and keep coming back", none: "no", gym: "partial", p57: "yes" },
+  { label: "Certified, instructor-led form correction", none: "no", gym: "no", p57: "yes" },
+  { label: "Builds community, not just facility access", none: "no", gym: "partial", p57: "yes" },
+  { label: "Reaches hybrid and distributed teams", none: "no", gym: "partial", p57: "yes" },
+  { label: "Transparent, centrally benchmarked pricing", none: "no", gym: "no", p57: "yes" },
+  { label: "Monthly reporting your leadership will read", none: "no", gym: "no", p57: "yes" },
+  { label: "Reads as genuine investment, not a perk box ticked", none: "no", gym: "partial", p57: "yes" }
+];
+
+function StatusIcon({ level }: { level: Level }) {
+  if (level === "yes")
+    return (
+      <span className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-gold/30 bg-gold/[0.1] text-gold">
+        <Check size={13} strokeWidth={2.6} />
+      </span>
+    );
+  if (level === "partial")
+    return (
+      <span className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-bone/10 bg-bone/[0.04] text-bone/40">
+        <Minus size={13} strokeWidth={2.6} />
+      </span>
+    );
+  return (
+    <span className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-bone/[0.06] bg-bone/[0.02] text-bone/20">
+      <X size={13} strokeWidth={2.6} />
+    </span>
+  );
+}
+
+export function StatusQuo() {
+  return (
+    <SlideShell
+      tone="dark"
+      num="02"
+      kicker="The alternative cost"
+      title={
+        <>
+          Doing nothing is a decision too -{" "}
+          <span className="gold-foil italic">and it shows up on the P&amp;L.</span>
+        </>
+      }
+      sub="A generic gym perk checks a box on a benefits deck. It rarely changes behaviour. Here's how the realistic alternatives actually compare."
+      footnote="Comparisons reflect typical corporate gym benefits offered in India; specific inclusions vary by provider."
+    >
+      <div className="panel overflow-x-auto p-6 md:p-7">
+        <div className="relative z-10 min-w-[560px]">
+          <div className="grid grid-cols-[1fr_84px_84px_84px] items-end gap-3 pb-5 sm:grid-cols-[1fr_140px_140px_140px] sm:gap-5">
+            <span />
+            <span className="text-center text-[9px] uppercase leading-tight tracking-[0.16em] text-bone/35">
+              No structured benefit
+            </span>
+            <span className="text-center text-[9px] uppercase leading-tight tracking-[0.16em] text-bone/35">
+              Generic gym membership
+            </span>
+            <span className="text-center text-[9px] uppercase leading-tight tracking-[0.16em] text-gold">
+              Physique 57 partnership
+            </span>
+          </div>
+          {COMPARISON_ROWS.map((r, i) => (
+            <Reveal key={r.label} delay={0.14 + i * 0.06}>
+              <div
+                className={`grid grid-cols-[1fr_84px_84px_84px] items-center gap-3 py-4 sm:grid-cols-[1fr_140px_140px_140px] sm:gap-5 ${
+                  i > 0 ? "border-t border-bone/[0.06]" : ""
+                }`}
+              >
+                <p className="text-[12.5px] leading-snug text-bone/65 sm:text-[13px]">{r.label}</p>
+                <StatusIcon level={r.none} />
+                <StatusIcon level={r.gym} />
+                <StatusIcon level={r.p57} />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+
+      <Reveal delay={0.62}>
+        <div className="panel-wash mt-4 p-7">
+          <p className="balance relative z-10 max-w-2xl font-display text-[1.25rem] font-light leading-snug tracking-[-0.02em] text-champagne md:text-[1.45rem]">
+            The question isn't whether a wellbeing benefit costs money.{" "}
+            <span className="gold-foil italic">It's whether the one you pick gets used.</span>
+          </p>
+        </div>
+      </Reveal>
+    </SlideShell>
+  );
+}
+
 /* -------------------------------- The Method ------------------------------- */
 
 const PILLARS = [
@@ -233,7 +325,7 @@ export function Difference() {
         aria-hidden
         className="outline-num pointer-events-none absolute -right-6 -top-14 hidden select-none font-display text-[16rem] font-semibold italic leading-none text-gold/[0.07] lg:block"
       >
-        02
+        03
       </span>
 
       <div className="absolute inset-0 z-10 px-6 pb-[104px] pt-[92px] md:px-12 xl:px-16">
@@ -242,7 +334,7 @@ export function Difference() {
             <div className="flex items-center gap-6">
               <Kicker>The method</Kicker>
               <span className="rule-gold flex-1" />
-              <span className="kicker hidden text-bone/25 md:block">02 - Corporate partnerships</span>
+              <span className="kicker hidden text-bone/25 md:block">03 - Corporate partnerships</span>
             </div>
           </Reveal>
 
@@ -330,7 +422,7 @@ export function Overview({ onSelect }: { onSelect: (i: number) => void }) {
   return (
     <SlideShell
       tone="light"
-      num="03"
+      num="04"
       kicker="Programmes at a glance"
       title={
         <>
@@ -345,7 +437,7 @@ export function Overview({ onSelect }: { onSelect: (i: number) => void }) {
         {OPTIONS.map((o, i) => (
           <Reveal key={o.id} delay={0.14 + i * 0.07} className="h-full">
             <button
-              onClick={() => onSelect(4 + i)}
+              onClick={() => onSelect(5 + i)}
               className="panel panel-hover group flex h-full w-full flex-col p-7 text-left"
             >
               <div className="relative z-10 flex items-baseline justify-between">

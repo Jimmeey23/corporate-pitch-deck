@@ -17,7 +17,7 @@ export function PartnershipStandard() {
   return (
     <SlideShell
       tone="light"
-      num="06"
+      num="08"
       kicker="The partnership standard"
       title={
         <>
@@ -59,7 +59,7 @@ export function Roadmap() {
   return (
     <SlideShell
       tone="light"
-      num="07"
+      num="10"
       kicker="Your first 90 days"
       title={
         <>
@@ -69,6 +69,30 @@ export function Roadmap() {
       }
       sub="A proven rollout we run with every partner. Preferential pricing grows from week nine as participation does."
     >
+      <Reveal delay={0.08}>
+        <div className="relative mb-10">
+          <div className="h-1 w-full overflow-hidden rounded-full bg-white/[0.06]">
+            <motion.div
+              className="h-full rounded-full"
+              style={{
+                background: "linear-gradient(90deg, #8a6f2b 0%, #c9a227 55%, #f0d999 100%)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3)"
+              }}
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: EASE }}
+            />
+          </div>
+          <div className="mt-3 flex justify-between text-[9px] uppercase tracking-[0.2em] text-bone/35">
+            <span>Day 0 · Signed</span>
+            <span>Day 30</span>
+            <span>Day 60</span>
+            <span>Day 90 · Scaled</span>
+          </div>
+        </div>
+      </Reveal>
+
       <div className="relative">
         <div
           className="absolute left-0 right-0 top-[23px] hidden h-px md:block"
