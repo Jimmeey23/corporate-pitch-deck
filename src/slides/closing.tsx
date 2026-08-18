@@ -152,6 +152,17 @@ export function Roadmap() {
 
 /* --------------------------------- Closing --------------------------------- */
 
+const TARGET_HUBS = [
+  { area: "Andheri East", count: 16 },
+  { area: "Nariman Point", count: 14 },
+  { area: "Lower Parel", count: 10 },
+  { area: "BKC", count: 8 },
+  { area: "Powai", count: 8 },
+  { area: "Goregaon East", count: 7 },
+  { area: "Fort", count: 6 },
+  { area: "Malad West", count: 5 }
+];
+
 export function Closing() {
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
@@ -227,8 +238,28 @@ export function Closing() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.6}>
-              <div className="mt-16 grid max-w-3xl gap-6 border-t border-gold/15 pt-7 sm:grid-cols-3">
+            <Reveal delay={0.58}>
+              <div className="mt-14 max-w-3xl border-t border-gold/15 pt-7">
+                <Kicker>Pipeline, ready to activate</Kicker>
+                <p className="relative z-10 mt-3 max-w-xl text-[12.5px] leading-[1.7] text-bone/50">
+                  94 target companies already mapped across Mumbai's top corporate hubs - spanning
+                  banking, law, IT, pharma and media - so outreach can begin the day we sign.
+                </p>
+                <div className="relative z-10 mt-4 flex flex-wrap gap-2">
+                  {TARGET_HUBS.map((h) => (
+                    <span
+                      key={h.area}
+                      className="tnum rounded-full border border-gold/25 bg-gold/[0.06] px-3.5 py-1.5 text-[9px] uppercase tracking-[0.18em] text-gilt/80"
+                    >
+                      {h.area} · {h.count}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.68}>
+              <div className="mt-10 grid max-w-3xl gap-6 border-t border-gold/15 pt-7 sm:grid-cols-3">
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
                   <Mail size={13} className="shrink-0 text-gold" /> info@physique57india.com
                 </div>
