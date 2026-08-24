@@ -143,7 +143,7 @@ export function ScenarioExplorer({ scenarios }: { scenarios: Scenario[]; tone?: 
             </p>
           </div>
           <span className="hidden font-display text-[4.5rem] italic leading-[0.7] text-gold/25 sm:block">
-            {s.label === "Low" ? "α" : s.label === "Medium" ? "β" : "γ"}
+            {s.label === "Low" ? "Tier 1" : s.label === "Medium" ? "Tier 2" : "Tier 3"}
           </span>
         </div>
       </Reveal>

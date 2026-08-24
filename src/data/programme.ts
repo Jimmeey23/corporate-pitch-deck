@@ -88,9 +88,9 @@ export const OPTIONS: OptionDef[] = [
     mechanics: [
       { label: "Single class, walk-in", value: "₹1,850", note: "Published studio rate" },
       { label: "Best public rate (8-class pack)", value: "₹1,563", note: "What your teams could pay today, retail" },
-      { label: "250+ credit block", value: "₹1,563", note: "Matches the best public rate" },
-      { label: "500+ credit block", value: "₹1,400", note: "10% below the best public rate" },
-      { label: "1,000+ credit block", value: "₹1,300", note: "17% below the best public rate" }
+      { label: "250+ credit block", value: "₹1,563", note: "Matches the best public rate & 15% below rack rate" },
+      { label: "500+ credit block", value: "₹1,400", note: "10% below the best public rate & 25% below rack rate" },
+      { label: "1,000+ credit block", value: "₹1,300", note: "17% below the best public rate & 30% below rack rate" }
     ],
     callout: {
       title: "A benefit that's genuinely better",
@@ -182,32 +182,6 @@ export const OPTIONS: OptionDef[] = [
       { key: "high", label: "High", tag: "Weekly", metrics: [ { label: "Rhythm", value: "48 sessions / yr" }, { label: "Per session", value: "₹30,000" } ], revenue: 1440000 }
     ],
     footnote: "Priced per session rather than per head - a simple way to introduce Physique 57 before rolling out memberships."
-  },
-  {
-    id: 6,
-    num: "06",
-    name: "Digital Access Pass",
-    short: "Digital Pass",
-    tagline: "Our on-demand and livestream library for hybrid and distributed teams - every pin code, from day one.",
-    bestFor: "For hybrid & distributed teams",
-    anchor: "₹9,500–12,000 per seat / year",
-    tone: "dark",
-    mechanics: [
-      { label: "On-demand annual, retail", value: "₹18,000", note: "Published consumer price" },
-      { label: "Corporate · 50+ seats", value: "₹12,000 / seat", note: "33% below retail" },
-      { label: "Corporate · 150+ seats", value: "₹11,000 / seat", note: "39% below retail" },
-      { label: "Corporate · 300+ seats", value: "₹9,500 / seat", note: "47% below retail" }
-    ],
-    callout: {
-      title: "Every pin code, from day one",
-      text: "The only programme that reaches distributed and non-Mumbai teams immediately - no studio, no scheduling, no travel. Bundle it with studio programmes for hybrid workforces; participation analytics are included in your monthly report."
-    },
-    scenarios: [
-      { key: "low", label: "Low", tag: "One business unit", metrics: [ { label: "Seats", value: "50" }, { label: "Per seat / year", value: "₹12,000" } ], revenue: 600000 },
-      { key: "medium", label: "Medium", tag: "Multi-city rollout", metrics: [ { label: "Seats", value: "150" }, { label: "Per seat / year", value: "₹11,000" } ], revenue: 1650000 },
-      { key: "high", label: "High", tag: "Company-wide", metrics: [ { label: "Seats", value: "300" }, { label: "Per seat / year", value: "₹9,500" } ], revenue: 2850000 }
-    ],
-    footnote: "Annual seat licences, billed centrally. Unused seats can be reassigned each quarter."
   }
 ];
 

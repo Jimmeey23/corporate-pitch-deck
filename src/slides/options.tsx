@@ -165,4 +165,3 @@ export const Option2 = () => <OptionSlide o={OPTIONS[1]} kickerNum="06" />;
 export const Option3 = () => <OptionSlide o={OPTIONS[2]} kickerNum="06" />;
 export const Option4 = () => <OptionSlide o={OPTIONS[3]} kickerNum="06" />;
 export const Option5 = () => <OptionSlide o={OPTIONS[4]} kickerNum="06" />;
-export const Option6 = () => <OptionSlide o={OPTIONS[5]} kickerNum="06" />;

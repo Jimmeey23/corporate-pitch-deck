@@ -18,7 +18,7 @@ export function PartnershipStandard() {
   return (
     <SlideShell
       tone="light"
-      num="09"
+      num="08"
       kicker="The partnership standard"
       title={
         <>
@@ -60,7 +60,7 @@ export function Roadmap() {
   return (
     <SlideShell
       tone="light"
-      num="11"
+      num="10"
       kicker="Your first 90 days"
       title={
         <>
@@ -431,6 +431,64 @@ export function Closing() {
             </Reveal>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------- ThankYou --------------------------------- */
+
+export function ThankYou() {
+  return (
+    <section className="relative flex h-full w-full items-center justify-center overflow-hidden bg-ink text-bone">
+      <motion.img
+        src="/images/cover.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{ scale: 1.12, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.22 }}
+        transition={{ duration: 1.9, ease: EASE }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/90 to-ink" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.12] blur-[150px]"
+        style={{ background: "radial-gradient(circle, #c9a227 0%, transparent 68%)" }}
+      />
+      <div className="vignette" />
+
+      <div className="relative z-10 flex flex-col items-center px-6 text-center">
+        <Reveal delay={0.1}>
+          <div className="flex items-center gap-4">
+            <span className="h-px w-14 bg-gradient-to-r from-transparent to-gold" />
+            <span className="kicker text-gilt/80">Physique 57 · Corporate Partnerships</span>
+            <span className="h-px w-14 bg-gradient-to-l from-transparent to-gold" />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.24}>
+          <h2 className="mt-8 font-display text-[clamp(3rem,8vw,7rem)] font-light leading-[0.95] tracking-[-0.038em] text-cream">
+            Thank <span className="gold-foil italic">you.</span>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.38}>
+          <p className="mt-8 max-w-md text-[13.5px] leading-[1.8] text-bone/55 md:text-[15px]">
+            We look forward to bringing Physique 57 to your team - and to the conversation that
+            gets us there.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.5}>
+          <div className="mt-11 flex flex-wrap items-center justify-center gap-6">
+            <div className="flex items-center gap-3 text-[12px] text-bone/55">
+              <Mail size={13} className="shrink-0 text-gold" /> info@physique57india.com
+            </div>
+            <div className="flex items-center gap-3 text-[12px] text-bone/55">
+              <Globe size={13} className="shrink-0 text-gold" /> physique57india.com
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

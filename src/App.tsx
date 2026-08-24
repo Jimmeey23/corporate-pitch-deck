@@ -3,10 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Chrome, SlideMap } from "./components/Chrome";
 import { EASE } from "./components/ui";
 import { Cover, WhyNow, StatusQuo, Difference, Overview } from "./slides/opening";
-import { Option1, Option2, Option3, Option4, Option5, Option6 } from "./slides/options";
+import { Option1, Option2, Option3, Option4, Option5 } from "./slides/options";
 import { Comparison } from "./slides/comparison";
 import { SegmentHooks, ROICalculator, FAQ } from "./slides/extras";
-import { PartnershipStandard, Roadmap, Closing } from "./slides/closing";
+import { PartnershipStandard, Roadmap, Closing, ThankYou } from "./slides/closing";
+import { useDeckExport } from "./utils/useDeckExport";
 
 interface SlideEntry {
   id: string;
@@ -26,19 +27,20 @@ const SLIDES: SlideEntry[] = [
   { id: "opt-3", title: "Programme 03 - The leadership concierge", C: Option3 },
   { id: "opt-4", title: "Programme 04 - Tiered membership menu", C: Option4 },
   { id: "opt-5", title: "Programme 05 - On-site & hosted classes", C: Option5 },
-  { id: "opt-6", title: "Programme 06 - Digital access pass", C: Option6 },
-  { id: "portfolio", title: "07 · The complete picture", C: Comparison },
-  { id: "roi", title: "08 · What it's worth", C: ROICalculator },
-  { id: "standard", title: "09 · The partnership standard", C: PartnershipStandard },
-  { id: "faq", title: "10 · Common questions", C: FAQ },
-  { id: "roadmap", title: "11 · Your first 90 days", C: Roadmap },
-  { id: "next", title: "12 · Let's begin", C: Closing }
+  { id: "portfolio", title: "06 · The complete picture", C: Comparison },
+  { id: "roi", title: "07 · What it's worth", C: ROICalculator },
+  { id: "standard", title: "08 · The partnership standard", C: PartnershipStandard },
+  { id: "faq", title: "09 · Common questions", C: FAQ },
+  { id: "roadmap", title: "10 · Your first 90 days", C: Roadmap },
+  { id: "next", title: "11 · Let's begin", C: Closing },
+  { id: "thanks", title: "12 · Thank you", C: ThankYou }
 ];
 
 export default function App() {
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
+  const { exporting, progress, exportDeck } = useDeckExport(SLIDES);
 
   const go = useCallback(
     (next: number) => {
@@ -98,6 +100,9 @@ export default function App() {
         onNext={handleNext}
         onOpenMap={() => setMapOpen(true)}
         onHome={() => go(0)}
+        onExport={exportDeck}
+        exporting={exporting}
+        exportProgress={progress}
       />
       <SlideMap
         open={mapOpen}

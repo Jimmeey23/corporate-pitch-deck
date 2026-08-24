@@ -146,7 +146,7 @@ export function ROICalculator() {
   return (
     <SlideShell
       tone="light"
-      num="08"
+      num="07"
       kicker="What it's worth"
       title={
         <>
@@ -212,7 +212,7 @@ const QA = [
   },
   {
     q: "We have people outside Mumbai. Does this still work for them?",
-    a: "Yes. The Digital Access Pass reaches every pin code from day one, and hosted classes travel to your office in any city we operate in. Most distributed teams combine both."
+    a: "Yes. Hosted classes travel to your office in any city we operate in, and flexible-benefits listings work wherever your team can access the marketplace. Most distributed teams combine both."
   },
   {
     q: "How do we know the pricing is genuinely fair?",
@@ -227,8 +227,8 @@ const QA = [
     a: "Monthly participation reporting - enrolment, attendance and engagement - goes to your named account partner and your HR team, with a quarterly review to discuss what's working."
   },
   {
-    q: "What happens to unused digital seats or class credits?",
-    a: "Digital seats can be reassigned each quarter; pooled class credits stay valid for 12 months and are shared across your whole team, so nothing goes to waste."
+    q: "What happens to unused class credits?",
+    a: "Pooled class credits stay valid for 12 months and are shared across your whole team, so nothing goes to waste."
   },
   {
     q: "Who actually runs the rollout?",
@@ -287,7 +287,7 @@ export function FAQ() {
   return (
     <SlideShell
       tone="dark"
-      num="10"
+      num="09"
       kicker="Common questions"
       title={
         <>

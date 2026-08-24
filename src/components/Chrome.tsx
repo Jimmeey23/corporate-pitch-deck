@@ -1,9 +1,74 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, LayoutGrid, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, LayoutGrid, Loader2, X } from "lucide-react";
+import { useState } from "react";
 import { EASE } from "./ui";
+import type { ExportFormat } from "../utils/useDeckExport";
 
 const navBtn =
   "flex h-9 w-9 items-center justify-center rounded-full border border-gold/25 bg-white/[0.03] text-gilt/80 backdrop-blur-md transition-all duration-400 hover:border-gold/70 hover:bg-gold/10 hover:text-champagne active:scale-95";
+
+const EXPORT_OPTIONS: { format: ExportFormat; label: string }[] = [
+  { format: "pdf", label: "PDF" },
+  { format: "pptx", label: "PowerPoint" },
+  { format: "png", label: "PNG images (.zip)" },
+  { format: "html", label: "Standalone HTML" }
+];
+
+function ExportMenu({
+  exporting,
+  progress,
+  onExport
+}: {
+  exporting: boolean;
+  progress: { done: number; total: number };
+  onExport: (format: ExportFormat) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="pointer-events-auto relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        disabled={exporting}
+        aria-label="Export deck"
+        className={navBtn}
+      >
+        {exporting ? <Loader2 size={13} strokeWidth={1.8} className="animate-spin" /> : <Download size={13} strokeWidth={1.8} />}
+      </button>
+
+      <AnimatePresence>
+        {open && !exporting && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="absolute bottom-12 right-0 z-40 w-52 overflow-hidden rounded-2xl border border-gold/25 bg-ink-2/95 backdrop-blur-xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]"
+          >
+            {EXPORT_OPTIONS.map((opt) => (
+              <button
+                key={opt.format}
+                onClick={() => {
+                  setOpen(false);
+                  onExport(opt.format);
+                }}
+                className="block w-full px-4 py-3 text-left text-[11px] uppercase tracking-[0.18em] text-bone/70 transition-colors duration-200 hover:bg-gold/10 hover:text-champagne"
+              >
+                {opt.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {exporting && (
+        <div className="absolute bottom-12 right-0 z-40 whitespace-nowrap rounded-full border border-gold/25 bg-ink-2/95 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-bone/60 backdrop-blur-xl">
+          Exporting {progress.done}/{progress.total}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function Chrome({
   index,
@@ -12,7 +77,10 @@ export function Chrome({
   onPrev,
   onNext,
   onOpenMap,
-  onHome
+  onHome,
+  onExport,
+  exporting,
+  exportProgress
 }: {
   index: number;
   total: number;
@@ -21,6 +89,9 @@ export function Chrome({
   onNext: () => void;
   onOpenMap: () => void;
   onHome: () => void;
+  onExport: (format: ExportFormat) => void;
+  exporting: boolean;
+  exportProgress: { done: number; total: number };
 }) {
   return (
     <>
@@ -75,6 +146,7 @@ export function Chrome({
           </div>
 
           <div className="pointer-events-auto flex min-w-[130px] items-center justify-end gap-2.5">
+            <ExportMenu exporting={exporting} progress={exportProgress} onExport={onExport} />
             <button onClick={onOpenMap} aria-label="Programme guide" className={navBtn}>
               <LayoutGrid size={13} strokeWidth={1.8} />
             </button>

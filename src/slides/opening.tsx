@@ -65,7 +65,7 @@ export function Cover() {
 
             <Reveal delay={0.7}>
               <p className="mt-9 max-w-lg text-[13.5px] leading-[1.8] text-bone/60 md:text-[15px]">
-                Six ways to bring Physique 57 to your workplace - from flexible benefits and hosted
+                Five ways to bring Physique 57 to your workplace - from flexible benefits and hosted
                 classes to a leadership concierge - each with transparent pricing and room to grow
                 with your teams.
               </p>
@@ -74,7 +74,7 @@ export function Cover() {
             <Reveal delay={0.82}>
               <div className="mt-11 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-bone/[0.08] pt-6 text-[10px] uppercase tracking-[0.28em] text-bone/45">
                 <span className="flex items-center gap-2.5">
-                  <span className="h-[3px] w-[3px] rotate-45 bg-gold" /> 6 programmes
+                  <span className="h-[3px] w-[3px] rotate-45 bg-gold" /> 5 programmes
                 </span>
                 <span className="flex items-center gap-2.5">
                   <span className="h-[3px] w-[3px] rotate-45 bg-gold" /> 3 adoption scenarios each
@@ -246,7 +246,7 @@ export function StatusQuo() {
       title={
         <>
           Doing nothing is a decision too -{" "}
-          <span className="gold-foil italic">and it shows up on the P&amp;L.</span>
+          <span className="gold-foil italic">and it shows up on the P&L.</span>
         </>
       }
       sub="A generic gym perk checks a box on a benefits deck. It rarely changes behaviour. Here's how the realistic alternatives actually compare."
@@ -299,8 +299,8 @@ export function StatusQuo() {
 
 const PILLARS = [
   {
-    title: "Ballet-meets-strength intervals",
-    text: "Low-impact, high-intensity sequences built on isometric holds - kind to joints, serious about results. Visible tone and posture change in as few as 8 sessions, with a fraction of the recovery downtime of HIIT or running."
+    title: "Small movements. Serious strength.",
+    text: "Sequences built on isometric holds — deceptively still, deeply effective. Kind to joints, hard on results. Most people see visible change within 8 sessions."
   },
   {
     title: "Instructor-led, form-obsessed",
@@ -311,8 +311,8 @@ const PILLARS = [
     text: "Founders, executives and cultural figures train here - your teams join a community, not just a class. It's a rare, informal room where colleagues, clients and industry peers show up as people first."
   },
   {
-    title: "On-demand between meetings",
-    text: "The full digital library keeps members consistent through travel weeks and hybrid schedules, on any device, anywhere. No studio, no equipment and no excuse - a 20-minute reset fits between back-to-back calls."
+    title: "Built to fit your day, not fight it.",
+    text: "Fifty-seven minutes, in and out — no wasted time, no filler sets. Early morning, lunch-hour and evening slots mean the workout works around the calendar, not the other way around."
   }
 ];
 
@@ -426,7 +426,7 @@ export function Overview({ onSelect }: { onSelect: (i: number) => void }) {
       kicker="Programmes at a glance"
       title={
         <>
-          Six ways to work together.{" "}
+          Five ways to work together.{" "}
           <span className="gold-foil italic">One published rate card.</span>
         </>
       }
