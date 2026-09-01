@@ -23,6 +23,15 @@ export interface Tier {
   featured?: boolean;
 }
 
+export interface UnitCost {
+  /** Annual price expressed monthly - the number a buyer can actually hold. */
+  perMonth?: string;
+  /** Cost of one class the employee actually attends. The comparative number. */
+  perSession: string;
+  /** The usage assumption behind perSession. Always state it. */
+  sessionNote: string;
+}
+
 export interface OptionDef {
   id: number;
   num: string;
@@ -38,6 +47,7 @@ export interface OptionDef {
   footnote: string;
   tiers?: Tier[];
   blended?: number;
+  unitCost?: UnitCost;
 }
 
 export const fmtINR = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
@@ -74,6 +84,11 @@ export const OPTIONS: OptionDef[] = [
       { key: "medium", label: "Medium", tag: "25% opt in", metrics: [ { label: "Opt-in rate", value: "25%" }, { label: "Members", value: "10 of 40" } ], revenue: 1881000 },
       { key: "high", label: "High", tag: "40% opt in", metrics: [ { label: "Opt-in rate", value: "40%" }, { label: "Members", value: "16 of 40" } ], revenue: 3009600 }
     ],
+    unitCost: {
+      perMonth: "₹15,675 / month",
+      perSession: "₹1,206 per attended class",
+      sessionNote: "At three classes a week - 35% below the ₹1,850 walk-in rate"
+    },
     footnote: "All corporate pricing is benchmarked to our published Mumbai studio rates - transparent, consistent and centrally maintained."
   },
   {
@@ -102,6 +117,10 @@ export const OPTIONS: OptionDef[] = [
       { key: "medium", label: "Medium", tag: "10% below public rates", metrics: [ { label: "Block size", value: "500 credits" }, { label: "Per class", value: "₹1,400" } ], revenue: 700000 },
       { key: "high", label: "High", tag: "17% below public rates", metrics: [ { label: "Block size", value: "1,000 credits" }, { label: "Per class", value: "₹1,300" } ], revenue: 1300000 }
     ],
+    unitCost: {
+      perSession: "₹1,300 – ₹1,563 per attended class",
+      sessionNote: "Credits are only consumed when someone attends - nothing is spent on non-use"
+    },
     footnote: "Priced with intent: your people always pay less through you than they would walking in alone."
   },
   {
@@ -128,6 +147,11 @@ export const OPTIONS: OptionDef[] = [
       { key: "medium", label: "Medium", tag: "Leadership bench", metrics: [ { label: "Leaders enrolled", value: "10" }, { label: "Per head", value: "₹2,50,000" } ], revenue: 2500000 },
       { key: "high", label: "High", tag: "Extended leadership", metrics: [ { label: "Leaders enrolled", value: "20" }, { label: "Per head", value: "₹2,50,000" } ], revenue: 5000000 }
     ],
+    unitCost: {
+      perMonth: "₹20,833 / month per leader",
+      perSession: "₹1,603 per attended class",
+      sessionNote: "At three classes a week, concierge privileges included"
+    },
     footnote: "Multi-year partnerships are price-protected, so each leader's benefit stays consistent for the full length of the agreement."
   },
   {
@@ -155,6 +179,11 @@ export const OPTIONS: OptionDef[] = [
       { key: "medium", label: "Medium", tag: "Department-wide", metrics: [ { label: "Total members", value: "25" }, { label: "Blended per head", value: "₹1,72,500" } ], revenue: 4312500 },
       { key: "high", label: "High", tag: "Whole of business", metrics: [ { label: "Total members", value: "40" }, { label: "Blended per head", value: "₹1,72,500" } ], revenue: 6900000 }
     ],
+    unitCost: {
+      perMonth: "₹14,375 / month blended",
+      perSession: "₹1,106 per attended class",
+      sessionNote: "At three classes a week - 40% below the ₹1,850 walk-in rate"
+    },
     footnote: "Estimates assume a 50% Base / 30% Mid / 20% Premium mix - refined with you each quarter as real enrolment patterns emerge."
   },
   {
@@ -181,6 +210,10 @@ export const OPTIONS: OptionDef[] = [
       { key: "medium", label: "Medium", tag: "Fortnightly", metrics: [ { label: "Rhythm", value: "24 sessions / yr" }, { label: "Per session", value: "₹32,500" } ], revenue: 780000 },
       { key: "high", label: "High", tag: "Weekly", metrics: [ { label: "Rhythm", value: "48 sessions / yr" }, { label: "Per session", value: "₹30,000" } ], revenue: 1440000 }
     ],
+    unitCost: {
+      perSession: "₹1,200 – ₹1,400 per head, per session",
+      sessionNote: "At 25 participants - no membership, no commitment, no unused seats"
+    },
     footnote: "Priced per session rather than per head - a simple way to introduce Physique 57 before rolling out memberships."
   }
 ];

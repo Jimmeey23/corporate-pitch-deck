@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Download, LayoutGrid, Loader2, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, ArrowRight, Download, LayoutGrid, Loader2, X, NotebookPen, AlertTriangle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { EASE } from "./ui";
 import type { ExportFormat } from "../utils/useDeckExport";
+import { SPEAKER_NOTES } from "../data/speakerNotes";
 
 const navBtn =
   "flex h-9 w-9 items-center justify-center rounded-full border border-gold/25 bg-white/[0.03] text-gilt/80 backdrop-blur-md transition-all duration-400 hover:border-gold/70 hover:bg-gold/10 hover:text-champagne active:scale-95";
@@ -70,10 +71,94 @@ function ExportMenu({
   );
 }
 
+/* ------------------------------ Speaker notes ------------------------------ */
+
+/**
+ * Presenter-only. Lives in the chrome rather than the slide so it is never
+ * captured by the export and never projected - `data-export-hide` keeps it out
+ * of any future capture that walks the chrome too.
+ */
+function SpeakerNotes({ slideId }: { slideId: string }) {
+  const [open, setOpen] = useState(false);
+  const note = SPEAKER_NOTES[slideId];
+
+  // `n` toggles. The panel deliberately stays open across slides so a presenter
+  // can leave it up for the whole pitch.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return;
+      if (e.key === "n" || e.key === "N") setOpen((v) => !v);
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  if (!note) return null;
+
+  return (
+    <div className="pointer-events-auto relative" data-export-hide>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? "Hide speaker notes" : "Show speaker notes"}
+        aria-expanded={open}
+        className={`${navBtn} ${open ? "border-gold/70 bg-gold/10 text-champagne" : ""}`}
+      >
+        <NotebookPen size={13} strokeWidth={1.8} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.97 }}
+            transition={{ duration: 0.24, ease: EASE }}
+            className="absolute bottom-12 right-0 z-40 max-h-[62vh] w-[min(90vw,26rem)] overflow-y-auto rounded-2xl border border-gold/25 bg-ink-2/97 p-6 text-left shadow-[0_24px_60px_-18px_rgba(0,0,0,0.75)] backdrop-blur-xl"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <span className="kicker inline-flex items-center gap-2.5 text-gold">
+                <span className="inline-block h-[3px] w-[3px] rotate-45 bg-gold" />
+                Speaker notes
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.2em] text-bone/25">Press N</span>
+            </div>
+
+            <p className="mt-5 font-display text-[1.05rem] font-light leading-snug tracking-[-0.015em] text-champagne">
+              {note.hook}
+            </p>
+
+            <ul className="mt-5 space-y-3 border-t border-bone/[0.08] pt-5">
+              {note.points.map((pt) => (
+                <li key={pt} className="flex gap-3 text-[12px] leading-[1.65] text-bone/60">
+                  <span className="mt-[7px] h-[3px] w-[3px] shrink-0 rotate-45 bg-gold/70" />
+                  {pt}
+                </li>
+              ))}
+            </ul>
+
+            {note.watchFor && (
+              <div className="mt-5 flex gap-3 border-t border-gold/15 pt-5">
+                <AlertTriangle size={13} className="mt-[3px] shrink-0 text-gold/70" strokeWidth={1.8} />
+                <p className="text-[11.5px] leading-[1.6] text-bone/45">
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-gold/60">Watch for </span>
+                  {note.watchFor}
+                </p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function Chrome({
   index,
   total,
   titles,
+  slideId,
   onPrev,
   onNext,
   onOpenMap,
@@ -85,6 +170,7 @@ export function Chrome({
   index: number;
   total: number;
   titles: string[];
+  slideId: string;
   onPrev: () => void;
   onNext: () => void;
   onOpenMap: () => void;
@@ -146,6 +232,7 @@ export function Chrome({
           </div>
 
           <div className="pointer-events-auto flex min-w-[130px] items-center justify-end gap-2.5">
+            <SpeakerNotes slideId={slideId} />
             <ExportMenu exporting={exporting} progress={exportProgress} onExport={onExport} />
             <button onClick={onOpenMap} aria-label="Programme guide" className={navBtn}>
               <LayoutGrid size={13} strokeWidth={1.8} />

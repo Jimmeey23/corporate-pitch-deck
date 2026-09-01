@@ -3,10 +3,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Chrome, SlideMap } from "./components/Chrome";
 import { EASE } from "./components/ui";
 import { Cover, WhyNow, StatusQuo, Difference, Overview } from "./slides/opening";
+import { Heritage } from "./slides/heritage";
 import { Option1, Option2, Option3, Option4, Option5 } from "./slides/options";
 import { Comparison } from "./slides/comparison";
-import { SegmentHooks, ROICalculator, FAQ } from "./slides/extras";
+import { ROICalculator, FAQ } from "./slides/extras";
 import { PartnershipStandard, Roadmap, Closing, ThankYou } from "./slides/closing";
+import { Proof } from "./slides/proof";
 import { useDeckExport } from "./utils/useDeckExport";
 
 interface SlideEntry {
@@ -15,26 +17,36 @@ interface SlideEntry {
   C: ComponentType<{ onSelect?: (i: number) => void }>;
 }
 
+/**
+ * Order matters. Proof and the value case land BEFORE any price does - a buyer
+ * who has not yet been given a reason to care reads five pricing slides as five
+ * costs.
+ */
 const SLIDES: SlideEntry[] = [
   { id: "cover", title: "Fitness that moves your business forward", C: Cover },
   { id: "opportunity", title: "01 · Why wellbeing, why now", C: WhyNow },
-  { id: "status-quo", title: "02 · The cost of the status quo", C: StatusQuo },
-  { id: "method", title: "03 · The Physique 57 method", C: Difference },
-  { id: "architecture", title: "04 · Programmes at a glance", C: Overview as SlideEntry["C"] },
-  { id: "segments", title: "05 · Where this lands best", C: SegmentHooks },
+  { id: "status-quo", title: "02 · The cost of inaction", C: StatusQuo },
+  { id: "heritage", title: "03 · Recognition", C: Heritage },
+  { id: "method", title: "04 · The Physique 57 method", C: Difference },
+  { id: "proof", title: "05 · The proof", C: Proof },
+  { id: "roi", title: "06 · What it's worth", C: ROICalculator },
+  { id: "architecture", title: "07 · Programmes at a glance", C: Overview as SlideEntry["C"] },
   { id: "opt-1", title: "Programme 01 - Flexible benefits listing", C: Option1 },
   { id: "opt-2", title: "Programme 02 - Pooled class credits", C: Option2 },
   { id: "opt-3", title: "Programme 03 - The leadership concierge", C: Option3 },
   { id: "opt-4", title: "Programme 04 - Tiered membership menu", C: Option4 },
   { id: "opt-5", title: "Programme 05 - On-site & hosted classes", C: Option5 },
-  { id: "portfolio", title: "06 · The complete picture", C: Comparison },
-  { id: "roi", title: "07 · What it's worth", C: ROICalculator },
-  { id: "standard", title: "08 · The partnership standard", C: PartnershipStandard },
-  { id: "faq", title: "09 · Common questions", C: FAQ },
-  { id: "roadmap", title: "10 · Your first 90 days", C: Roadmap },
-  { id: "next", title: "11 · Let's begin", C: Closing },
-  { id: "thanks", title: "12 · Thank you", C: ThankYou }
+  { id: "portfolio", title: "09 · Build your programme", C: Comparison },
+  { id: "standard", title: "10 · The partnership standard", C: PartnershipStandard },
+  { id: "faq", title: "11 · Common questions", C: FAQ },
+  { id: "roadmap", title: "12 · Your first 90 days", C: Roadmap },
+  { id: "next", title: "13 · Let's begin", C: Closing },
+  { id: "thanks", title: "14 · Thank you", C: ThankYou }
 ];
+
+const OVERVIEW_INDEX = SLIDES.findIndex((s) => s.id === "architecture");
+const OPTION_INDEX = (optionIndex: number) =>
+  SLIDES.findIndex((s) => s.id === `opt-${optionIndex + 1}`);
 
 export default function App() {
   const [index, setIndex] = useState(0);
@@ -88,7 +100,14 @@ export default function App() {
           exit={{ opacity: 0, x: dir * -28, scale: 0.99, filter: "blur(10px)" }}
           transition={{ duration: 0.75, ease: EASE }}
         >
-          {index === 4 ? <Overview onSelect={(i) => go(i)} /> : (() => { const S = SLIDES[index].C; return <S />; })()}
+          {index === OVERVIEW_INDEX ? (
+            <Overview onSelect={(optionIndex) => go(OPTION_INDEX(optionIndex))} />
+          ) : (
+            (() => {
+              const S = SLIDES[index].C;
+              return <S />;
+            })()
+          )}
         </motion.main>
       </AnimatePresence>
 
@@ -96,6 +115,7 @@ export default function App() {
         index={index}
         total={SLIDES.length}
         titles={SLIDES.map((s) => s.title)}
+        slideId={SLIDES[index].id}
         onPrev={handlePrev}
         onNext={handleNext}
         onOpenMap={() => setMapOpen(true)}

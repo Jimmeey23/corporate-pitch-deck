@@ -38,7 +38,7 @@ export function Comparison() {
   return (
     <SlideShell
       tone="dark"
-      num="06"
+      num="09"
       kicker="The complete picture"
       title={
         <>
@@ -66,7 +66,7 @@ export function Comparison() {
         </Reveal>
       </div>
 
-      <div className="panel mt-8 overflow-hidden">
+      <div className="panel mt-6 overflow-hidden">
         <div className="relative z-10">
           {OPTIONS.map((o, i) => {
             const rev = values[i];
@@ -77,7 +77,7 @@ export function Comparison() {
             return (
               <Reveal key={o.id} delay={0.14 + i * 0.07}>
                 <div
-                  className={`grid grid-cols-[96px_1fr] items-center gap-4 px-6 py-4 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[210px_1fr_150px] sm:gap-5 ${
+                  className={`grid grid-cols-[96px_1fr] items-center gap-4 px-6 py-3.5 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[210px_1fr_150px] sm:gap-5 ${
                     i > 0 ? "border-t border-bone/[0.055]" : ""
                   }`}
                 >
@@ -140,11 +140,11 @@ export function Comparison() {
       </div>
 
       <Reveal delay={0.55}>
-        <div className="panel-wash mt-4 flex flex-wrap items-center justify-between gap-5 px-7 py-6">
+        <div className="panel-wash mt-3.5 flex flex-wrap items-center justify-between gap-5 px-7 py-5">
           <div className="relative z-10">
             <span className="kicker text-gold">The complete programme</span>
             <p className="mt-2 text-[12px] text-bone/45">
-              All six programmes combined ·{" "}
+              All five programmes combined ·{" "}
               {preset ? `${PRESETS.find((p) => p.value === preset)!.label.toLowerCase()} adoption` : "your custom mix"}
             </p>
           </div>

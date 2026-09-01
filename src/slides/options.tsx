@@ -1,4 +1,4 @@
-import { Check, Sparkles, ShieldCheck } from "lucide-react";
+import { Check, Sparkles, ShieldCheck, Activity } from "lucide-react";
 import { Reveal, ScenarioExplorer, SlideShell } from "../components/ui";
 import { OPTIONS, fmtINR, type OptionDef } from "../data/programme";
 
@@ -11,7 +11,7 @@ function MechanicsList({ o }: { o: OptionDef }) {
         {o.mechanics.map((m, i) => (
           <Reveal key={m.label} delay={0.16 + i * 0.07}>
             <div
-              className={`group flex items-baseline justify-between gap-5 px-5 py-4 transition-colors duration-300 hover:bg-white/[0.022] ${
+              className={`group flex items-baseline justify-between gap-5 px-5 py-3.5 transition-colors duration-300 hover:bg-white/[0.022] ${
                 i > 0 ? "border-t border-bone/[0.06]" : ""
               }`}
             >
@@ -39,7 +39,7 @@ function TierMenu({ o }: { o: OptionDef }) {
         {o.tiers!.map((t, i) => (
           <Reveal key={t.name} delay={0.16 + i * 0.08} className="h-full">
             <div
-              className={`flex h-full flex-col p-5 ${
+              className={`flex h-full flex-col p-4 ${
                 t.featured ? "panel-gold" : "panel panel-hover text-bone"
               }`}
             >
@@ -60,7 +60,7 @@ function TierMenu({ o }: { o: OptionDef }) {
               >
                 {t.pkg}
               </p>
-              <p className="tnum relative z-10 mt-4 font-display text-[1.75rem] font-light leading-none tracking-[-0.03em]">
+              <p className="tnum relative z-10 mt-3.5 font-display text-[1.6rem] font-light leading-none tracking-[-0.03em]">
                 {fmtINR(t.price)}
                 <span
                   className={`ml-1.5 align-middle font-sans text-[9px] uppercase tracking-[0.2em] ${
@@ -71,7 +71,7 @@ function TierMenu({ o }: { o: OptionDef }) {
                 </span>
               </p>
               <ul
-                className={`relative z-10 mt-5 space-y-2 border-t pt-4 text-[11.5px] leading-snug ${
+                className={`relative z-10 mt-4 space-y-1.5 border-t pt-3.5 text-[11px] leading-snug ${
                   t.featured ? "border-ink/15 text-ink/80" : "border-bone/[0.07] text-bone/60"
                 }`}
               >
@@ -92,7 +92,7 @@ function TierMenu({ o }: { o: OptionDef }) {
       </div>
 
       <Reveal delay={0.4}>
-        <div className="panel-wash mt-3.5 flex flex-wrap items-center justify-between gap-3 px-6 py-4">
+        <div className="panel-wash mt-3.5 flex flex-wrap items-center justify-between gap-3 px-6 py-3">
           <span className="relative z-10 text-[10px] uppercase tracking-[0.24em] text-bone/50">
             Blended price / head · 50 – 30 – 20 mix
           </span>
@@ -102,6 +102,54 @@ function TierMenu({ o }: { o: OptionDef }) {
         </div>
       </Reveal>
     </div>
+  );
+}
+
+/* ------------------------------ Unit economics ----------------------------- */
+
+/**
+ * The comparative number a buyer can hold against any other benefit: what one
+ * class an employee actually attends costs. A ₹1,500 gym pass used twelve times
+ * a year costs ₹18,000 per attended session; this is the framing that makes a
+ * premium price read as the cheaper option.
+ */
+function UnitEconomics({ o }: { o: OptionDef }) {
+  if (!o.unitCost) return null;
+  const { perMonth, perSession, sessionNote } = o.unitCost;
+  return (
+    <Reveal delay={0.3}>
+      <div className="panel-wash px-6 py-5">
+        <div className="relative z-10 flex items-center gap-3">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-gold/25 bg-gold/10 text-gold">
+            <Activity size={13} strokeWidth={2} />
+          </span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-champagne">
+            What it actually costs
+          </span>
+        </div>
+        <div className="relative z-10 mt-4 flex flex-wrap items-baseline gap-x-8 gap-y-3">
+          {perMonth && (
+            <div>
+              <p className="tnum font-display text-[1.4rem] font-light leading-none tracking-[-0.02em] text-champagne">
+                {perMonth}
+              </p>
+              <p className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-bone/35">
+                Per head
+              </p>
+            </div>
+          )}
+          <div>
+            <p className="gold-foil tnum font-display text-[1.4rem] font-light leading-none tracking-[-0.02em]">
+              {perSession}
+            </p>
+            <p className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-bone/35">
+              Cost per attended class
+            </p>
+          </div>
+        </div>
+        <p className="relative z-10 mt-4 text-[11.5px] leading-[1.6] text-bone/45">{sessionNote}</p>
+      </div>
+    </Reveal>
   );
 }
 
@@ -144,7 +192,7 @@ function OptionSlide({ o, kickerNum }: { o: OptionDef; kickerNum: string }) {
       sub={o.tagline}
       footnote={o.footnote}
     >
-      <div className="grid gap-7 lg:grid-cols-12 lg:gap-8">
+      <div className="grid items-start gap-7 lg:grid-cols-12 lg:gap-8">
         <div className="flex flex-col gap-3.5 lg:col-span-5">
           <Reveal delay={0.12}>
             <span className="kicker text-bone/35">{o.tiers ? "The menu" : "How it's priced"}</span>
@@ -152,16 +200,19 @@ function OptionSlide({ o, kickerNum }: { o: OptionDef; kickerNum: string }) {
           {o.tiers ? <TierMenu o={o} /> : <MechanicsList o={o} />}
           <Callout o={o} />
         </div>
-        <div className="lg:col-span-7">
+        {/* Unit economics sits under the scenarios so the two columns land at a
+            similar height - on the left it pushed the callout past the fold. */}
+        <div className="flex flex-col gap-3.5 lg:col-span-7">
           <ScenarioExplorer scenarios={o.scenarios} />
+          <UnitEconomics o={o} />
         </div>
       </div>
     </SlideShell>
   );
 }
 
-export const Option1 = () => <OptionSlide o={OPTIONS[0]} kickerNum="06" />;
-export const Option2 = () => <OptionSlide o={OPTIONS[1]} kickerNum="06" />;
-export const Option3 = () => <OptionSlide o={OPTIONS[2]} kickerNum="06" />;
-export const Option4 = () => <OptionSlide o={OPTIONS[3]} kickerNum="06" />;
-export const Option5 = () => <OptionSlide o={OPTIONS[4]} kickerNum="06" />;
+export const Option1 = () => <OptionSlide o={OPTIONS[0]} kickerNum="08" />;
+export const Option2 = () => <OptionSlide o={OPTIONS[1]} kickerNum="08" />;
+export const Option3 = () => <OptionSlide o={OPTIONS[2]} kickerNum="08" />;
+export const Option4 = () => <OptionSlide o={OPTIONS[3]} kickerNum="08" />;
+export const Option5 = () => <OptionSlide o={OPTIONS[4]} kickerNum="08" />;

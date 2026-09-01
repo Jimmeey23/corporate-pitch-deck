@@ -119,7 +119,7 @@ export function ScenarioExplorer({ scenarios }: { scenarios: Scenario[]; tone?: 
   const s = scenarios[sel];
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       <Reveal delay={0.15}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="kicker text-bone/35">Adoption scenario</span>
@@ -132,23 +132,23 @@ export function ScenarioExplorer({ scenarios }: { scenarios: Scenario[]; tone?: 
         </div>
       </Reveal>
 
-      <Reveal delay={0.22} className="mt-7">
+      <Reveal delay={0.22} className="mt-6">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <div className="gold-foil font-display text-[clamp(2.8rem,5vw,4.5rem)] font-light leading-[0.9] tracking-[-0.03em]">
+            <div className="gold-foil font-display text-[clamp(2.4rem,4vw,3.6rem)] font-light leading-[0.9] tracking-[-0.03em]">
               <AnimatedNumber value={s.revenue} />
             </div>
-            <p className="mt-4 text-[10px] uppercase tracking-[0.26em] text-bone/40">
+            <p className="mt-3.5 text-[10px] uppercase tracking-[0.26em] text-bone/40">
               Indicative annual investment · {s.label} adoption
             </p>
           </div>
-          <span className="hidden font-display text-[4.5rem] italic leading-[0.7] text-gold/25 sm:block">
+          <span className="hidden font-display text-[3.4rem] italic leading-[0.7] text-gold/25 sm:block">
             {s.label === "Low" ? "Tier 1" : s.label === "Medium" ? "Tier 2" : "Tier 3"}
           </span>
         </div>
       </Reveal>
 
-      <div className="mt-7 grid flex-1 grid-cols-1 gap-3.5 sm:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-3.5 sm:grid-cols-3">
         {scenarios.map((sc, i) => {
           const active = i === sel;
           return (
@@ -171,7 +171,7 @@ export function ScenarioExplorer({ scenarios }: { scenarios: Scenario[]; tone?: 
                     {sc.tag}
                   </span>
                 </div>
-                <div className="relative z-10 mt-5 flex-1 space-y-3">
+                <div className="relative z-10 mt-5 space-y-3">
                   {sc.metrics.map((m) => (
                     <div key={m.label} className="flex items-baseline justify-between gap-2 text-[13px]">
                       <span className="opacity-55">{m.label}</span>
@@ -180,7 +180,7 @@ export function ScenarioExplorer({ scenarios }: { scenarios: Scenario[]; tone?: 
                   ))}
                 </div>
                 <div
-                  className={`relative z-10 mt-5 border-t pt-3.5 ${
+                  className={`relative z-10 mt-6 border-t pt-3.5 ${
                     active ? "border-ink/15" : "border-bone/8"
                   }`}
                 >
@@ -256,7 +256,7 @@ export function SlideShell({
         {num}
       </span>
 
-      <div className="absolute inset-0 z-10 px-6 pb-[104px] pt-[92px] md:px-12 xl:px-16">
+      <div className="absolute inset-0 z-10 px-6 pb-[88px] pt-[80px] md:px-12 xl:px-16">
         <div data-scroll className="mx-auto flex h-full max-w-[1500px] flex-col overflow-y-auto pr-1">
           <Reveal>
             <div className="flex items-center gap-6">
@@ -269,24 +269,24 @@ export function SlideShell({
           </Reveal>
 
           <Reveal delay={0.08}>
-            <h2 className="balance mt-7 max-w-4xl font-display text-[clamp(2rem,4.2vw,3.6rem)] font-light leading-[1.02] tracking-[-0.028em] text-cream">
+            <h2 className="balance mt-6 max-w-4xl font-display text-[clamp(2rem,4.2vw,3.6rem)] font-light leading-[1.02] tracking-[-0.028em] text-cream">
               {title}
             </h2>
           </Reveal>
 
           {sub && (
             <Reveal delay={0.14}>
-              <p className="mt-5 max-w-2xl text-[13.5px] leading-[1.75] text-bone/55 md:text-[15px]">
+              <p className="mt-4 max-w-2xl text-[13.5px] leading-[1.75] text-bone/55 md:text-[15px]">
                 {sub}
               </p>
             </Reveal>
           )}
 
-          <div className="mt-10 shrink-0 md:mt-12">{children}</div>
+          <div className="mt-7 shrink-0 md:mt-8">{children}</div>
 
           {footnote && (
             <Reveal delay={0.45}>
-              <p className="mt-10 flex items-start gap-3.5 text-[11px] leading-relaxed text-bone/32">
+              <p className="mt-6 flex items-start gap-3.5 text-[11px] leading-relaxed text-bone/32">
                 <span className="mt-[6px] h-px w-9 shrink-0 bg-gold/45" />
                 <span className="italic">{footnote}</span>
               </p>

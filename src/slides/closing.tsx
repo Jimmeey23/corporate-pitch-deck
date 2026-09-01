@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Handshake, Megaphone, BarChart3, CalendarDays, Ticket, Receipt, ArrowRight, Mail, MapPin, Globe, ChevronDown } from "lucide-react";
+import { Handshake, Megaphone, BarChart3, CalendarDays, Ticket, Receipt, ArrowRight, Mail, MapPin, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { Reveal, SlideShell, Kicker, EASE } from "../components/ui";
 
@@ -18,7 +17,7 @@ export function PartnershipStandard() {
   return (
     <SlideShell
       tone="light"
-      num="08"
+      num="10"
       kicker="The partnership standard"
       title={
         <>
@@ -60,7 +59,7 @@ export function Roadmap() {
   return (
     <SlideShell
       tone="light"
-      num="10"
+      num="12"
       kicker="Your first 90 days"
       title={
         <>
@@ -153,127 +152,7 @@ export function Roadmap() {
 
 /* --------------------------------- Closing --------------------------------- */
 
-const TARGET_HUBS: { area: string; companies: { name: string; sector: string; phone: string | null }[] }[] = [
-  {
-    area: "Andheri East",
-    companies: [
-      { name: "HDFC ERGO General Insurance", sector: "Insurance", phone: "+91 1800 266 6400" },
-      { name: "Hungama Digital Media Entertainment", sector: "Media/Entertainment", phone: "+91 22 7165 3344" },
-      { name: "Red Bull Pvt Ltd (India HQ)", sector: "FMCG/Beverages", phone: "+91 22 6618 0888" },
-      { name: "Procter & Gamble Hygiene and Health Care Ltd", sector: "FMCG", phone: "+91 22 2826 6000" },
-      { name: "PVR INOX Limited", sector: "Media/Entertainment", phone: "+91 22 4062 6900" },
-      { name: "Jet Airways (Head Office)", sector: "Aviation", phone: "+91 22 3989 3333" },
-      { name: "The Supreme Industries Ltd (Corporate Office)", sector: "Manufacturing/Plastics", phone: "+91 22 6771 0099" },
-      { name: "Solitaire Corporate Park (multi-tenant)", sector: "Mixed Corporate", phone: "+91 22 6694 2700" },
-      { name: "VKG Corporate Centre (multi-tenant)", sector: "Mixed Corporate", phone: "+91 22 6189 8000" },
-      { name: "Hubtown Solaris (business park, 100+ companies)", sector: "Mixed Corporate", phone: null },
-      { name: "Lodha Supremus, Andheri (business park)", sector: "Mixed Corporate", phone: "+91 77188 93537" },
-      { name: "Skyline Icon (business/coworking hub)", sector: "Mixed Corporate/Coworking", phone: "+91 93216 25550" },
-      { name: "Watson Pharma (Head Office)", sector: "Pharma", phone: "+91 22 6268 5936" },
-      { name: "Oceanic Pharmachem Pvt Ltd", sector: "Pharma", phone: "+91 22 4212 8666" },
-      { name: "Network Techlab (India) Ltd", sector: "IT Infrastructure", phone: "+91 88790 04536" },
-      { name: "Nirman Group of Companies", sector: "Real Estate/Construction", phone: "+91 22 2683 6111" },
-    ]
-  },
-  {
-    area: "Nariman Point",
-    companies: [
-      { name: "Union Bank of India (Central Office)", sector: "Banking (PSU)", phone: "+91 22 2289 2000" },
-      { name: "DBS Bank (Nariman Point Branch)", sector: "Banking", phone: "+91 1860 210 3456" },
-      { name: "Axis Bank (Corporate Banking Branch)", sector: "Banking", phone: "+91 1860 500 5555" },
-      { name: "Bank of Baroda (Mid-Corporate Branch)", sector: "Banking (PSU)", phone: "+91 1800 5700" },
-      { name: "Central Bank of India (Head Office - Chander Mukhi)", sector: "Banking (PSU)", phone: null },
-      { name: "Bandhan Bank", sector: "Banking", phone: "+91 1800 258 8181" },
-      { name: "Shardul Amarchand Mangaldas", sector: "Law Firm", phone: "+91 22 4933 5555" },
-      { name: "Khaitan Legal Associates", sector: "Law Firm", phone: "+91 22 6140 0000" },
-      { name: "Khemka & Associates", sector: "Law Firm", phone: "+91 99201 03701" },
-      { name: "Vis Legis Law Practice, Advocates", sector: "Law Firm", phone: "+91 22 2288 5551" },
-      { name: "ALMT Legal", sector: "Law Firm", phone: "+91 22 4001 0000" },
-      { name: "Regstreet Law Advisors", sector: "Law Firm", phone: "+91 22 4928 3700" },
-      { name: "RKS Associate", sector: "Law Firm", phone: "+91 22 3513 4124" },
-      { name: "Dhruve Liladhar And Co", sector: "Law Firm", phone: "+91 22 6760 6000" },
-    ]
-  },
-  {
-    area: "Lower Parel",
-    companies: [
-      { name: "Tata AIG General Insurance", sector: "Insurance", phone: "+91 22 6669 9697" },
-      { name: "Cedar Management Consulting International", sector: "Consulting", phone: "+91 22 6661 9800" },
-      { name: "Cipla Ltd (Corporate HQ)", sector: "Pharma", phone: "+91 22 2482 6000" },
-      { name: "JioStar India Pvt Ltd (Star House)", sector: "Media/Entertainment", phone: "+91 22 6630 5555" },
-      { name: "ZEE Entertainment Enterprises (HQ)", sector: "Media/Entertainment", phone: "+91 22 7106 1234" },
-      { name: "Peninsula Corporate Park (multi-tenant business park)", sector: "Mixed Corporate", phone: null },
-      { name: "One Lodha Place (business park)", sector: "Mixed Corporate", phone: null },
-      { name: "Nippon India Mutual Fund (Corporate Office)", sector: "Asset Management", phone: "+91 22 6808 7000" },
-      { name: "Allied Blenders And Distillers Ltd", sector: "FMCG/Beverages", phone: "+91 22 4300 1111" },
-      { name: "Peninsula Land Ltd", sector: "Real Estate", phone: "+91 22 6622 9300" },
-    ]
-  },
-  {
-    area: "BKC",
-    companies: [
-      { name: "De Beers Group (Corporate Office)", sector: "Luxury/Diamonds", phone: "+91 22 6786 5555" },
-      { name: "SAP India Pvt Ltd", sector: "IT/Software", phone: "+91 40 2348 2802" },
-      { name: "ONGC (Corporate HQ)", sector: "Oil & Gas (PSU)", phone: "+91 11 2675 0998" },
-      { name: "Google Mumbai", sector: "IT/Technology", phone: "+91 22 6611 7150" },
-      { name: "Godrej BKC (multi-tenant incl. Amazon, Netflix, Abbott)", sector: "Mixed Corporate", phone: "+91 11 6657 5604" },
-      { name: "JLL Mumbai (Real Estate Consulting)", sector: "Real Estate Services", phone: "+91 22 7149 5900" },
-      { name: "Abbott India Ltd", sector: "Pharma/Healthcare", phone: "+91 22 6797 8888" },
-      { name: "Pittie Group (Corporate HQ)", sector: "Conglomerate/Retail", phone: "+91 22 4260 4260" },
-    ]
-  },
-  {
-    area: "Powai",
-    companies: [
-      { name: "Tata Consultancy Services (Kensington Campus)", sector: "IT/Software", phone: "+91 22 6732 3000" },
-      { name: "HCLTech", sector: "IT/Software", phone: "+91 22 4032 0320" },
-      { name: "Thoughtworks Technologies India", sector: "IT/Software", phone: "+91 22 4542 0100" },
-      { name: "LTIMindtree (LTM)", sector: "IT/Software", phone: null },
-      { name: "Orion Innovation", sector: "IT/Software", phone: "+91 22 6722 6100" },
-      { name: "Tech Data Technology Solutions", sector: "IT/Distribution", phone: "+91 22 4420 0200" },
-      { name: "Moat Wealth Associates LLP", sector: "Financial Services", phone: "+91 22 2570 4357" },
-      { name: "Param Investments MF Services LLP", sector: "Financial Services", phone: "+91 98205 34589" },
-    ]
-  },
-  {
-    area: "Goregaon East",
-    companies: [
-      { name: "Oberoi Realty Limited", sector: "Real Estate", phone: "+91 22 6677 3333" },
-      { name: "Oberoi Commerz III (business tower)", sector: "Mixed Corporate", phone: null },
-      { name: "Commerz II (Oberoi business tower)", sector: "Mixed Corporate", phone: "+91 22 6677 3333" },
-      { name: "Lotus Corporate Park (200+ companies incl. Asian Paints, Mahindra)", sector: "Mixed Corporate", phone: null },
-      { name: "Corporate Avenue (multi-tenant)", sector: "Mixed Corporate", phone: "+91 99037 56976" },
-      { name: "Synergy Business Park", sector: "Mixed Corporate", phone: "+91 22 2556 7011" },
-      { name: "Oberoi Garden City / International Business Park", sector: "Mixed Corporate", phone: "+91 22 6677 3333" },
-    ]
-  },
-  {
-    area: "Fort",
-    companies: [
-      { name: "Tata Communications Ltd", sector: "Telecom", phone: null },
-      { name: "Groupe Veritas Limited", sector: "Petrochemical Trading", phone: "+91 22 2275 5555" },
-      { name: "Tata Steel Ltd (Bombay House - Tata Group HQ)", sector: "Conglomerate/Steel", phone: "+91 1800 108 8282" },
-      { name: "Healthspring (Corporate HQ)", sector: "Healthcare", phone: "+91 22 6130 3434" },
-      { name: "DBS Workspace (Serviced/Shared Offices)", sector: "Business Centre", phone: "+91 22 4077 9100" },
-      { name: "Dosti Realty Ltd (Corporate Office)", sector: "Real Estate", phone: "+91 86577 03375" },
-    ]
-  },
-  {
-    area: "Malad West",
-    companies: [
-      { name: "Mindspace Malad (IT/business park)", sector: "Mixed Corporate", phone: "+91 22 2656 4000" },
-      { name: "Tech Mahindra Limited", sector: "IT/BPO", phone: "+91 22 4907 3333" },
-      { name: "Prism Tower (Mindspace - ICICI, Bank of America, Teleperformance)", sector: "Mixed Corporate", phone: null },
-      { name: "Sodexo India (Office)", sector: "Facilities/Corporate Services", phone: "+91 22 4421 4500" },
-      { name: "9 Business Bay (business park)", sector: "Mixed Corporate", phone: "+91 80505 73555" },
-    ]
-  },
-];
-
-
 export function Closing() {
-  const [openHub, setOpenHub] = useState<string | null>(null);
-
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
       <motion.img
@@ -299,7 +178,7 @@ export function Closing() {
         57
       </span>
 
-      <div className="absolute inset-0 z-10 px-6 pb-[104px] pt-[92px] md:px-12 xl:px-16">
+      <div className="absolute inset-0 z-10 px-6 pb-[88px] pt-[80px] md:px-12 xl:px-16">
         <div data-scroll className="mx-auto flex h-full max-w-[1500px] flex-col overflow-y-auto">
           <div className="m-auto w-full">
             <Reveal delay={0.12}>
@@ -348,69 +227,36 @@ export function Closing() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.58}>
-              <div className="mt-14 max-w-3xl border-t border-gold/15 pt-7">
-                <Kicker>Pipeline, ready to activate</Kicker>
-                <p className="relative z-10 mt-3 max-w-xl text-[12.5px] leading-[1.7] text-bone/50">
-                  94 target companies already mapped across Mumbai's top corporate hubs - spanning
-                  banking, law, IT, pharma and media - so outreach can begin the day we sign. Tap a
-                  hub to see who's on the list, with a direct line for each.
-                </p>
-                <div className="relative z-10 mt-4 flex flex-wrap gap-2">
-                  {TARGET_HUBS.map((h) => {
-                    const open = openHub === h.area;
-                    return (
-                      <button
-                        key={h.area}
-                        onClick={() => setOpenHub(open ? null : h.area)}
-                        aria-expanded={open}
-                        className={`tnum flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[9px] uppercase tracking-[0.18em] transition-all duration-300 ${
-                          open
-                            ? "border-gold bg-gold/[0.14] text-champagne"
-                            : "border-gold/25 bg-gold/[0.06] text-gilt/80 hover:border-gold/55 hover:bg-gold/[0.1]"
-                        }`}
-                      >
-                        {h.area} · {h.companies.length}
-                        <ChevronDown
-                          size={10}
-                          className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-                        />
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div
-                  className="grid transition-[grid-template-rows] duration-450 ease-out"
-                  style={{ gridTemplateRows: openHub ? "1fr" : "0fr" }}
-                >
-                  <div className="overflow-hidden">
-                    {openHub && (
-                      <div className="panel mt-4 max-h-[260px] overflow-y-auto p-5">
-                        <div className="relative z-10 grid gap-x-6 gap-y-3 sm:grid-cols-2">
-                          {TARGET_HUBS.find((h) => h.area === openHub)!.companies.map((c) => (
-                            <div key={c.name}>
-                              <div className="flex items-baseline justify-between gap-3 text-[11.5px]">
-                                <span className="text-bone/70">{c.name}</span>
-                                <span className="shrink-0 text-[9px] uppercase tracking-[0.14em] text-gold/45">
-                                  {c.sector}
-                                </span>
-                              </div>
-                              <div className="tnum mt-0.5 text-[10px] text-bone/35">
-                                {c.phone ?? "Phone on request"}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+            <Reveal delay={0.54}>
+              <div className="panel-wash mt-9 max-w-3xl p-6">
+                <div className="relative z-10">
+                  <Kicker>What we're asking for</Kicker>
+                  <p className="balance mt-3.5 max-w-2xl font-display text-[1.25rem] font-light leading-snug tracking-[-0.02em] text-champagne md:text-[1.42rem]">
+                    A sixty-minute design session with your HR lead, and{" "}
+                    <span className="gold-foil italic">one hosted class for twenty-five of your people</span>{" "}
+                    - at our cost - within the next three weeks.
+                  </p>
+                  <div className="mt-5 grid gap-5 border-t border-gold/15 pt-4 sm:grid-cols-3">
+                    {[
+                      { k: "Your cost", v: "Nothing", n: "Instructor, mats and music are ours" },
+                      { k: "Your commitment", v: "One hour", n: "No contract, no purchase order" },
+                      { k: "What you get", v: "A real signal", n: "Attendance data from your own teams" }
+                    ].map((c) => (
+                      <div key={c.k}>
+                        <p className="text-[9px] uppercase tracking-[0.22em] text-gold/55">{c.k}</p>
+                        <p className="mt-2 font-display text-[1.3rem] font-light leading-none tracking-[-0.02em] text-cream">
+                          {c.v}
+                        </p>
+                        <p className="mt-2 text-[11px] leading-snug text-bone/40">{c.n}</p>
                       </div>
-                    )}
+                    ))}
                   </div>
                 </div>
               </div>
             </Reveal>
 
             <Reveal delay={0.68}>
-              <div className="mt-10 grid max-w-3xl gap-6 border-t border-gold/15 pt-7 sm:grid-cols-3">
+              <div className="mt-8 grid max-w-3xl gap-6 border-t border-gold/15 pt-6 sm:grid-cols-3">
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
                   <Mail size={13} className="shrink-0 text-gold" /> info@physique57india.com
                 </div>
@@ -424,7 +270,7 @@ export function Closing() {
             </Reveal>
 
             <Reveal delay={0.7}>
-              <p className="mt-12 text-[9px] uppercase leading-relaxed tracking-[0.24em] text-bone/25">
+              <p className="mt-8 text-[9px] uppercase leading-relaxed tracking-[0.24em] text-bone/25">
                 Private &amp; confidential · All prices exclusive of GST · Benchmarked to published
                 Mumbai studio rates · Figures indicative, finalised with your programme design
               </p>
