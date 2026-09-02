@@ -34,6 +34,9 @@ const WORKING_DAYS = 240;
 
 const fmtBand = (n: number) => `₹${n / 100000}L`;
 
+/** "4.0 departures" reads like a typo. Show a whole number when it is one. */
+const fmtExits = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+
 export function ROICalculator() {
   const [cohort, setCohort] = useState(25);
   const [ctc, setCtc] = useState(2500000);
@@ -44,23 +47,22 @@ export function ROICalculator() {
   const replacementCost = ctc * (REPLACEMENT_COST_MONTHS / 12);
   const breakevenExits = investment / replacementCost;
   const absenteeismRecovered = cohort * SICK_DAYS_AVOIDED * (ctc / WORKING_DAYS);
-
-  const exitsLabel =
-    breakevenExits < 1
-      ? "Less than one"
-      : breakevenExits < 1.05
-        ? "One"
-        : breakevenExits.toFixed(1);
+  /**
+   * The figure that holds at every setting: what one avoided departure buys.
+   * Cohort break-even moves with the inputs, so the headline cannot depend on
+   * it - at 25 leaders on the concierge programme it is four, not one.
+   */
+  const membershipsPerDeparture = Math.floor(replacementCost / programme.rate);
 
   return (
     <SlideShell
       tone="light"
-      num="06"
+      num="05"
       kicker="What it's worth"
       title={
         <>
-          The programme pays for itself{" "}
-          <span className="gold-foil italic">if it keeps one person.</span>
+          Retention pays for this{" "}
+          <span className="gold-foil italic">long before wellbeing does.</span>
         </>
       }
       sub="Not a wellness multiplier - two costs you already carry. Set your cohort and salary band; the arithmetic is yours to check."
@@ -119,7 +121,7 @@ export function ROICalculator() {
           {
             label: "Departures avoided to break even",
             value: breakevenExits,
-            format: (n: number) => (n < 1 ? n.toFixed(1) : n.toFixed(1)),
+            format: fmtExits,
             sub: `Out of ${cohort} enrolled`
           },
           {
@@ -151,17 +153,10 @@ export function ROICalculator() {
       <Reveal delay={0.62}>
         <div className="panel-wash mt-4 p-7">
           <p className="balance relative z-10 max-w-3xl font-display text-[1.2rem] font-light leading-snug tracking-[-0.02em] text-champagne md:text-[1.4rem]">
-            {exitsLabel === "Less than one" || exitsLabel === "One" ? (
-              <>
-                Keeping <span className="gold-foil italic">one</span> of these {cohort} people for a
-                single extra year covers the entire programme -
-              </>
-            ) : (
-              <>
-                Keeping <span className="gold-foil italic">{exitsLabel}</span> of these {cohort}{" "}
-                people for a single extra year covers the entire programme -
-              </>
-            )}{" "}
+            One departure you prevent pays for{" "}
+            <span className="gold-foil italic">{membershipsPerDeparture}</span> of these
+            memberships. Breaking even across the whole cohort takes{" "}
+            <span className="gold-foil italic">{fmtExits(breakevenExits)}</span> of {cohort} -{" "}
             before counting the {fmtShort(absenteeismRecovered)} in recovered sick days, or a single
             rupee of engagement, employer brand or hiring advantage.
           </p>

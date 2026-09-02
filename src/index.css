@@ -92,6 +92,8 @@ body {
   background-clip: text;
   color: transparent;
   animation: foil 9s linear infinite;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
 }
 
 @keyframes foil {
@@ -222,4 +224,91 @@ body {
 .rule-gold {
   height: 1px;
   background: linear-gradient(to right, rgba(201, 162, 39, 0.65), rgba(236, 230, 218, 0.09) 45%, transparent);
+}
+
+/* ------------------------------- Brochure -------------------------------- */
+
+/*
+ * The leave-behind: two A4 pages. Deliberately printed ink-on-cream rather
+ * than the deck's gold-on-black - a dark brochure wastes toner, reads badly on
+ * paper, and this is a document meant to survive the meeting.
+ */
+.paper {
+  width: 210mm;
+  min-height: 297mm;
+  background: #f7f3ea;
+  color: #17171a;
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-edge {
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(201, 162, 39, 0.18);
+}
+
+.paper .kicker {
+  color: #8a6f2b;
+}
+
+/* Gold rule that reads on cream */
+.rule-ink {
+  height: 1px;
+  background: linear-gradient(to right, rgba(201, 162, 39, 0.9), rgba(23, 23, 26, 0.16) 45%, transparent);
+}
+
+.paper-foil {
+  background: linear-gradient(100deg, #8a6f2b 0%, #b8912a 30%, #d8b23f 52%, #a37f27 78%, #7d641f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body,
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  /* The deck itself, the chrome and the brochure toolbar never print. */
+  .print-hide {
+    display: none !important;
+  }
+
+  .brochure-root {
+    position: static !important;
+    overflow: visible !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .paper {
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .paper:last-of-type {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  /* Backgrounds and gold foil must survive the print pipeline. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }

@@ -21,15 +21,15 @@ export function Cover() {
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
       <motion.img
-        src="/images/cover.jpg"
-        alt="Physique 57 barre studio"
-        className="absolute inset-0 h-full w-full object-cover"
-        initial={{ scale: 1.16, opacity: 0.35 }}
-        animate={{ scale: 1, opacity: 0.8 }}
+        src="/images/cover-studio.jpg"
+        alt="A class working through the method at the Physique 57 studio"
+        className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
+        initial={{ scale: 1.16, opacity: 0.2 }}
+        animate={{ scale: 1, opacity: 0.62 }}
         transition={{ duration: 2.2, ease: EASE }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/88 to-ink/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/92 to-ink/25" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/70" />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-28 left-[18%] h-[680px] w-[680px] rounded-full opacity-[0.11] blur-[150px]"
@@ -70,7 +70,7 @@ export function Cover() {
               </Reveal>
               <Reveal delay={0.56}>
                 <span className="gold-foil block text-[clamp(3rem,8.4vw,7.6rem)] italic">
-                  your business forward.
+                your business forward.
                 </span>
               </Reveal>
             </h1>
@@ -105,9 +105,11 @@ export function Cover() {
 
       <div className="absolute right-6 top-24 hidden text-right md:right-12 md:block xl:right-16">
         <Reveal delay={1}>
-          <p className="text-[9px] uppercase tracking-[0.3em] text-bone/35">Prepared for</p>
+          <p className="text-[9px] uppercase tracking-[0.3em] text-bone/35">
+            Prepared &amp; curated for
+          </p>
           <p className="mt-2 font-display text-lg italic tracking-[-0.01em] text-champagne">
-            People &amp; HR Leaders
+            Mr Aditya D. Parekh
           </p>
           <p className="mt-2 text-[9px] uppercase tracking-[0.3em] text-bone/35">
             Private &amp; confidential
@@ -584,7 +586,7 @@ export function Overview({ onSelect }: { onSelect: (optionIndex: number) => void
   return (
     <SlideShell
       tone="light"
-      num="07"
+      num="06"
       kicker="Programmes at a glance"
       title={
         <>

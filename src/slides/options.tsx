@@ -211,8 +211,8 @@ function OptionSlide({ o, kickerNum }: { o: OptionDef; kickerNum: string }) {
   );
 }
 
-export const Option1 = () => <OptionSlide o={OPTIONS[0]} kickerNum="08" />;
-export const Option2 = () => <OptionSlide o={OPTIONS[1]} kickerNum="08" />;
-export const Option3 = () => <OptionSlide o={OPTIONS[2]} kickerNum="08" />;
-export const Option4 = () => <OptionSlide o={OPTIONS[3]} kickerNum="08" />;
-export const Option5 = () => <OptionSlide o={OPTIONS[4]} kickerNum="08" />;
+export const Option1 = () => <OptionSlide o={OPTIONS[0]} kickerNum="07" />;
+export const Option2 = () => <OptionSlide o={OPTIONS[1]} kickerNum="07" />;
+export const Option3 = () => <OptionSlide o={OPTIONS[2]} kickerNum="07" />;
+export const Option4 = () => <OptionSlide o={OPTIONS[3]} kickerNum="07" />;
+export const Option5 = () => <OptionSlide o={OPTIONS[4]} kickerNum="07" />;

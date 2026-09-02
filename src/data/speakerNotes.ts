@@ -46,7 +46,7 @@ export const SPEAKER_NOTES: Record<string, SpeakerNote> = {
     points: [
       "Lead with Good Housekeeping and The Fit Guide - one of only five studios in New York to earn both five-star awards. Then stop; do not read all four cards.",
       "The Vogue India award is the one that matters in this room. It says the brand is recognised in their market, not just imported into it.",
-      "Pivot fast to the right-hand panel. The awards make them comfortable; the certification, the Four Seasons and Waldorf Astoria partnerships, and the three delivery formats are what they actually have to defend internally.",
+      "Pivot fast to the right-hand panel. The awards make them comfortable; the certification, the enrolment argument and the three delivery formats are what they actually have to defend internally.",
       "The certification point pre-empts the biggest objection to any multi-city rollout: will the class in Pune be the class we bought in Mumbai. Yes, and it is contractual."
     ],
     watchFor: "Awards get superseded. Re-confirm src/data/brand.ts before every pitch - a stale award is the one claim here a prospect can catch."
@@ -59,20 +59,11 @@ export const SPEAKER_NOTES: Record<string, SpeakerNote> = {
       "The community point matters more than it sounds - it is why members return, and return is what the whole deck is selling."
     ]
   },
-  proof: {
-    hook: "Slow down here. This is the slide that decides whether anything after it is believed.",
-    points: [
-      "Say plainly: everything before this was industry research, everything here is ours and you can audit it.",
-      "The attendance number against the ~12% benchmark for gym benefits is the single most persuasive figure in the deck.",
-      "Offer the methodology unprompted. Offering it is what makes them not ask for it."
-    ],
-    watchFor: "Never quote a figure here you cannot produce the underlying report for. Confirm the numbers are current before every pitch."
-  },
   roi: {
     hook: "Set their real inputs on screen. Do not present the defaults.",
     points: [
       "Ask for their cohort size and average CTC and change the toggles live. The arithmetic in front of them is worth more than any slide you could have prepared.",
-      "The framing is breakeven, not return: how many departures must this prevent to pay for itself. Usually one.",
+      "Lead with the line that holds at every setting: one departure you prevent pays for several of these memberships. Cohort break-even moves with their inputs - do not promise 'one person' before you have seen their numbers.",
       "Say explicitly that you have NOT used the '$3.27 returned per $1' wellness figure, and why - the 2019 randomised trial did not replicate it. Naming the weak argument you refused to make buys you the strong one."
     ],
     watchFor: "If they challenge 7.5 months of CTC as a replacement cost, ask what number they use. Whatever they say, put it in - the case survives at half."
@@ -174,7 +165,7 @@ export const SPEAKER_NOTES: Record<string, SpeakerNote> = {
     hook: "Follow up the same day, while the deck is still open on their screen.",
     points: [
       "Send the deck, their modelled mix from the portfolio slide, and the two proposed taster dates.",
-      "Attach the proof methodology if they showed any scepticism on that slide.",
+      "Attach the award citations if they showed any scepticism on the recognition slide.",
       "Copy whoever was named as a sign-off but was not in the room."
     ]
   }

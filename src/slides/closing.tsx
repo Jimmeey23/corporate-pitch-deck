@@ -67,7 +67,7 @@ export function Roadmap() {
           <span className="gold-foil italic">in one quarter.</span>
         </>
       }
-      sub="A proven rollout we run with every partner. Preferential pricing grows from week nine as participation does."
+      sub="A proven rollout we run with every partner - with pricing locked for the full length of the agreement, however participation grows."
     >
       <Reveal delay={0.08}>
         <div className="relative mb-10">
@@ -141,7 +141,7 @@ export function Roadmap() {
               </p>
             </div>
             <span className="rounded-full border border-gold/35 bg-gold/[0.06] px-5 py-2.5 text-[9px] uppercase tracking-[0.24em] text-gilt/85">
-              Ready to launch in 14 days
+              First class inside 30 days
             </span>
           </div>
         </div>
@@ -156,14 +156,15 @@ export function Closing() {
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
       <motion.img
-        src="/images/cover.jpg"
+        src="/images/class-group.jpg"
         alt=""
-        className="absolute inset-0 h-full w-full scale-x-[-1] object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         initial={{ scale: 1.12, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.28 }}
+        animate={{ scale: 1, opacity: 0.42 }}
         transition={{ duration: 1.9, ease: EASE }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/88 to-ink/72" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/45" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/70" />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-40 top-1/4 h-[620px] w-[620px] rounded-full opacity-[0.11] blur-[150px]"
@@ -219,10 +220,10 @@ export function Closing() {
                   />
                 </a>
                 <a
-                  href="mailto:info@physique57india.com?subject=Corporate%20Programme%20Brochure%20Request"
+                  href="#brochure"
                   className="inline-flex items-center gap-3 rounded-full border border-gold/35 px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-gilt/85 transition-all duration-400 hover:border-gold/70 hover:bg-gold/[0.07] hover:text-champagne"
                 >
-                  Request the full brochure
+                  View the full brochure &amp; rate card
                 </a>
               </div>
             </Reveal>
@@ -261,7 +262,7 @@ export function Closing() {
                   <Mail size={13} className="shrink-0 text-gold" /> info@physique57india.com
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
-                  <MapPin size={13} className="shrink-0 text-gold" /> Flagship studio - Mumbai & Bengaluru
+                  <MapPin size={13} className="shrink-0 text-gold" /> Studios - Mumbai & Bengaluru
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-bone/55">
                   <Globe size={13} className="shrink-0 text-gold" /> physique57india.com

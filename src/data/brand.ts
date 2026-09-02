@@ -14,6 +14,7 @@
  *   Barre Certification - physique57.com/blog/introducing-barre-certification/
  *   Press index         - physique57.com/buzz/
  *   India launch        - physique57india.com (Four Seasons Mumbai, April 2018)
+ *   Bengaluru studio    - physique57india.com/bangalore/ (Vittal Mallya Road)
  *
  * ⚠️  Re-check before each pitch. Awards get superseded, and an out-of-date
  *     claim is the one thing on this slide a prospect can catch.
@@ -65,7 +66,7 @@ export const FEATURED_IN = [
 
 export const BRAND_STATS = [
   { value: 2006, format: (n: number) => String(Math.round(n)), label: "Founded in New York" },
-  { value: 5, format: (n: number) => `${Math.round(n)} markets`, label: "NY · NJ · Dubai · Bangkok · Mumbai" },
+  { value: 6, format: (n: number) => `${Math.round(n)} cities`, label: "NY · NJ · Dubai · Bangkok · Mumbai · Bengaluru" },
   { value: 500, format: (n: number) => `${Math.round(n)}+`, label: "On-demand classes" }
 ];
 
@@ -80,8 +81,8 @@ export const OPERATING_PROOF = [
     text: "Not all barre is created equal - we certify every instructor to one standard, so the class in Mumbai is the class in Manhattan. Consistency is contractual, not aspirational."
   },
   {
-    title: "Already trusted by enterprise partners",
-    text: "The India flagship opened inside the Four Seasons Mumbai; the New York business runs a residency at the Waldorf Astoria. We are used to operating to somebody else's standards."
+    title: "It solves the enrolment problem",
+    text: "Wellbeing benefits rarely fail at delivery - they fail at sign-up. A brand your teams already follow removes the hardest part of any rollout: people opt in because they want this particular studio, not because HR asked them twice."
   },
   {
     title: "Studio, on-site and on-demand",

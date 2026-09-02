@@ -8,8 +8,8 @@ import { Option1, Option2, Option3, Option4, Option5 } from "./slides/options";
 import { Comparison } from "./slides/comparison";
 import { ROICalculator, FAQ } from "./slides/extras";
 import { PartnershipStandard, Roadmap, Closing, ThankYou } from "./slides/closing";
-import { Proof } from "./slides/proof";
 import { useDeckExport } from "./utils/useDeckExport";
+import { Brochure } from "./brochure/Brochure";
 
 interface SlideEntry {
   id: string;
@@ -28,20 +28,19 @@ const SLIDES: SlideEntry[] = [
   { id: "status-quo", title: "02 · The cost of inaction", C: StatusQuo },
   { id: "heritage", title: "03 · Recognition", C: Heritage },
   { id: "method", title: "04 · The Physique 57 method", C: Difference },
-  { id: "proof", title: "05 · The proof", C: Proof },
-  { id: "roi", title: "06 · What it's worth", C: ROICalculator },
-  { id: "architecture", title: "07 · Programmes at a glance", C: Overview as SlideEntry["C"] },
+  { id: "roi", title: "05 · What it's worth", C: ROICalculator },
+  { id: "architecture", title: "06 · Programmes at a glance", C: Overview as SlideEntry["C"] },
   { id: "opt-1", title: "Programme 01 - Flexible benefits listing", C: Option1 },
   { id: "opt-2", title: "Programme 02 - Pooled class credits", C: Option2 },
   { id: "opt-3", title: "Programme 03 - The leadership concierge", C: Option3 },
   { id: "opt-4", title: "Programme 04 - Tiered membership menu", C: Option4 },
   { id: "opt-5", title: "Programme 05 - On-site & hosted classes", C: Option5 },
-  { id: "portfolio", title: "09 · Build your programme", C: Comparison },
-  { id: "standard", title: "10 · The partnership standard", C: PartnershipStandard },
-  { id: "faq", title: "11 · Common questions", C: FAQ },
-  { id: "roadmap", title: "12 · Your first 90 days", C: Roadmap },
-  { id: "next", title: "13 · Let's begin", C: Closing },
-  { id: "thanks", title: "14 · Thank you", C: ThankYou }
+  { id: "portfolio", title: "08 · Build your programme", C: Comparison },
+  { id: "standard", title: "09 · The partnership standard", C: PartnershipStandard },
+  { id: "faq", title: "10 · Common questions", C: FAQ },
+  { id: "roadmap", title: "11 · Your first 90 days", C: Roadmap },
+  { id: "next", title: "12 · Let's begin", C: Closing },
+  { id: "thanks", title: "13 · Thank you", C: ThankYou }
 ];
 
 const OVERVIEW_INDEX = SLIDES.findIndex((s) => s.id === "architecture");
@@ -52,6 +51,11 @@ export default function App() {
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
+  // The brochure is addressable at #brochure so the link can be shared, and so
+  // the back button closes it.
+  const [brochureOpen, setBrochureOpen] = useState(
+    () => typeof window !== "undefined" && window.location.hash === "#brochure"
+  );
   const { exporting, progress, exportDeck } = useDeckExport(SLIDES);
 
   const go = useCallback(
@@ -68,7 +72,19 @@ export default function App() {
   const handlePrev = useCallback(() => go(index - 1), [go, index]);
 
   useEffect(() => {
+    const sync = () => setBrochureOpen(window.location.hash === "#brochure");
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+
+  const closeBrochure = useCallback(() => {
+    if (window.location.hash === "#brochure") history.back();
+    else setBrochureOpen(false);
+  }, []);
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (brochureOpen) return;
       if (e.key === "Escape") return setMapOpen(false);
       if (e.key === "g" || e.key === "G") return setMapOpen((v) => !v);
       if (mapOpen) return;
@@ -86,10 +102,11 @@ export default function App() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [handleNext, handlePrev, go, mapOpen]);
+  }, [handleNext, handlePrev, go, mapOpen, brochureOpen]);
 
   return (
     <div className="relative h-dvh w-screen overflow-hidden bg-ink text-bone">
+      <div className={brochureOpen ? "print-hide contents" : "contents"}>
       <AnimatePresence mode="wait" custom={dir}>
         <motion.main
           key={index}
@@ -136,6 +153,9 @@ export default function App() {
       />
 
       <div className="grain" />
+      </div>
+
+      {brochureOpen && <Brochure onClose={closeBrochure} />}
     </div>
   );
 }
