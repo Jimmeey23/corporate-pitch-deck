@@ -1,6 +1,6 @@
 import { Handshake, Megaphone, BarChart3, CalendarDays, Ticket, Receipt, ArrowRight, Mail, MapPin, Globe } from "lucide-react";
 import { motion } from "framer-motion";
-import { Reveal, SlideShell, Kicker, EASE } from "../components/ui";
+import { Reveal, SlideShell, Kicker, Marquee, EASE } from "../components/ui";
 
 /* ---------------------------- The Partnership ---------------------------- */
 
@@ -156,7 +156,7 @@ export function Closing() {
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
       <motion.img
-        src="/images/class-group.jpg"
+        src="/images/cover-studio.jpg"
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
         initial={{ scale: 1.12, opacity: 0 }}
@@ -303,6 +303,25 @@ export function ThankYou() {
         style={{ background: "radial-gradient(circle, #c9a227 0%, transparent 68%)" }}
       />
       <div className="vignette" />
+
+      <motion.div
+        className="pointer-events-none absolute inset-x-0 bottom-[13%] z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.6, delay: 1.2, ease: EASE }}
+      >
+        <Marquee
+          duration={52}
+          reverse
+          items={[
+            "Physique 57 India",
+            "Corporate Wellness Partnerships",
+            "Mumbai & Bengaluru",
+            "physique57india.com",
+            "Let's begin"
+          ]}
+        />
+      </motion.div>
 
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <Reveal delay={0.1}>

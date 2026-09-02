@@ -200,6 +200,52 @@ export function ScenarioExplorer({ scenarios }: { scenarios: Scenario[]; tone?: 
   );
 }
 
+/* --------------------------------- Marquee -------------------------------- */
+
+/**
+ * Decorative ticker for the cover and the closing frame.
+ *
+ * The list is rendered twice: the animation travels -50% of the track, which is
+ * exactly one copy, so the seam never shows. Marked aria-hidden because the
+ * duplication would otherwise read every item twice to a screen reader, and
+ * nothing here is information the deck does not state elsewhere.
+ */
+export function Marquee({
+  items,
+  duration = 44,
+  reverse = false,
+  className = ""
+}: {
+  items: string[];
+  /** Seconds for one full pass. Longer is slower. */
+  duration?: number;
+  reverse?: boolean;
+  className?: string;
+}) {
+  const track = [...items, ...items];
+
+  return (
+    <div className={`marquee ${className}`} aria-hidden>
+      <div
+        className="marquee-track"
+        style={{
+          animationDuration: `${duration}s`,
+          animationDirection: reverse ? "reverse" : "normal"
+        }}
+      >
+        {track.map((item, i) => (
+          <span key={`${item}-${i}`} className="flex shrink-0 items-center">
+            <span className="whitespace-nowrap font-display text-[1.5rem] font-light italic tracking-[-0.015em] text-champagne/45 md:text-[1.85rem]">
+              {item}
+            </span>
+            <span className="mx-8 h-[5px] w-[5px] shrink-0 rotate-45 bg-gold/55 md:mx-11" />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ------------------------------ SlideBackdrop ------------------------------ */
 
 export function SlideBackdrop({ variant = 0 }: { variant?: number }) {

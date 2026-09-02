@@ -312,3 +312,42 @@ body {
     print-color-adjust: exact !important;
   }
 }
+
+/* -------------------------------- Marquee -------------------------------- */
+
+/*
+ * Infinite ticker. The track holds the item list twice and travels exactly
+ * -50%, so the second copy lands where the first began and the loop is
+ * seamless. Edges are masked rather than hard-cut so items fade in and out
+ * instead of popping at the slide boundary.
+ */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* A scrolling band is exactly the motion vestibular disorders react to. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}

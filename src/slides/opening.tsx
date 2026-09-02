@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, MoveUpRight, Check, Minus, X, TrendingDown } from "lucide-react";
-import { Reveal, AnimatedNumber, SlideShell, SlideBackdrop, Kicker, EASE } from "../components/ui";
+import { Reveal, AnimatedNumber, SlideShell, SlideBackdrop, Kicker, Marquee, EASE } from "../components/ui";
 import { OPTIONS, fmtShort, fmtINR } from "../data/programme";
 import {
   ANNUAL_EXITS,
@@ -21,15 +21,30 @@ export function Cover() {
   return (
     <section className="relative h-full w-full overflow-hidden bg-ink text-bone">
       <motion.img
-        src="/images/cover-studio.jpg"
-        alt="A class working through the method at the Physique 57 studio"
-        className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
-        initial={{ scale: 1.16, opacity: 0.2 }}
-        animate={{ scale: 1, opacity: 0.62 }}
+        src="/images/class-group.jpg"
+        alt="A full class mid-sequence at the Physique 57 studio"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        initial={{ scale: 1.16, opacity: 0.18 }}
+        animate={{ scale: 1, opacity: 0.78 }}
         transition={{ duration: 2.2, ease: EASE }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/92 to-ink/25" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/70" />
+      {/* Tailwind's three gradient stops cannot hold the headline and still let
+          the class read on the right, so these are hand-placed: solid behind the
+          type, opening up past 60% where the sunlit group sits. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, #08080a 0%, rgba(8,8,10,0.94) 36%, rgba(8,8,10,0.70) 58%, rgba(8,8,10,0.12) 100%)"
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(8,8,10,0.94) 0%, rgba(8,8,10,0.30) 46%, rgba(8,8,10,0.58) 100%)"
+        }}
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-28 left-[18%] h-[680px] w-[680px] rounded-full opacity-[0.11] blur-[150px]"
@@ -56,7 +71,33 @@ export function Cover() {
 
       <div className="absolute inset-0 z-10 px-6 pb-[88px] pt-[80px] md:px-12 xl:px-16">
         <div data-scroll className="mx-auto flex h-full max-w-[1500px] flex-col overflow-y-auto">
-          <div className="mt-auto">
+          {/* In flow, not absolutely positioned: the headline block below is
+              bottom-anchored with mt-auto, so on a short viewport it grows
+              upward. A percentage-placed marquee gets run over. Here the auto
+              margin collapses instead and the two can never overlap. The top
+              offset clears the "prepared for" block, and the negative inline
+              margins let the ticker run edge to edge through the frame padding. */}
+          <div className="-mx-6 mt-[100px] shrink-0 md:-mx-12 xl:-mx-16 [@media(max-height:780px)]:hidden">
+            <motion.div
+              className="pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.6, delay: 1.1, ease: EASE }}
+            >
+              <Marquee
+                duration={52}
+                items={[
+                  "Corporate Wellness Partnerships",
+                  "Est. New York 2006",
+                  "The 57-minute method",
+                  "Mumbai & Bengaluru",
+                  "Five programmes, one rate card"
+                ]}
+              />
+            </motion.div>
+          </div>
+
+          <div className="mt-auto pt-10">
             <Reveal delay={0.3}>
               <div className="flex items-center gap-4">
                 <span className="h-px w-14 bg-gradient-to-r from-gold to-gilt/40" />
